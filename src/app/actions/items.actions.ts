@@ -1,5 +1,7 @@
+import { Injectable } from '@angular/core';
 import { AnyAction } from 'redux';
 
+@Injectable()
 export class ItemsActions {
     static readonly GET_ITEMS_BY_QUERY = 'GET_ITEMS_BY_QUERY';
     static readonly GET_DEFAULT_ITEMS = 'GET_DEFAULT_ITEMS';

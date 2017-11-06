@@ -1,6 +1,9 @@
+import { Injectable } from '@angular/core';
+
 import { AnyAction } from 'redux';
 import { id } from '../models/items.model';
 
+@Injectable()
 export class DisplayItemsActions {
     static readonly ADD_ITEM_TO_DISPLAY = 'ADD_ITEM_TO_DISPLAY';
     static readonly REMOVE_ITEM_FROM_DISPLAY = 'REMOVE_ITEM_FROM_DISPLAY';
