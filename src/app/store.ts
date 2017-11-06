@@ -10,45 +10,49 @@ export interface IItem {
     photoURL: string,
 }
 
+export interface IItemsRef {
+    [id: string]: IItem
+}
+
 export interface IItemList {
-    items: IItem[],
+    items: IItemsRef,
 }
 
 export interface IAppState {
     itemList: IItemList,
-    displayedItems: id[],
+    displayItems: id[],
     shoppingCart: id[],
 }
 
-export const INITIAL_STATE = {
-    itemList: {items:[]},
-    displayedItems: [],
+export const INITIAL_STATE: IAppState = {
+    itemList: {items:{}},
+    displayItems: [],
     shoppingCart: [], 
 }
 
-export const fakeItemsData: IItem[] = [
-    {
+export const fakeItemsData: IItemsRef = {
+    '0': {
         id: '0',
         name: 'Couch',
         price: 99.99,
         rating: 2,
         photoURL: null
     },
-    {
+    '8ch': {
         id: '8ch',
         name: 'TV',
         price: 10.99,
         rating: 3,
         photoURL: null
     },
-    {
+    '6cb': {
         id: '6cb',
         name: 'Candle',
         price: 0.99,
         rating: 5,
         photoURL: null
     },
-]
+}
 
 export class DisplayItemsActions {
     static readonly ADD_ITEM_TO_DISPLAY = 'ADD_ITEM_TO_DISPLAY';
@@ -89,7 +93,7 @@ export class ItemsActions {
     }
 }
 
-export const shoppingCart = (state: id[], action: AnyAction) => {
+export const shoppingCart = (state: id[]=INITIAL_STATE.shoppingCart, action: AnyAction) => {
     switch(action.type) {
         case ShoppingCartActions.ADD_ITEM_TO_CART:
             return [...state, action.id];
@@ -100,7 +104,7 @@ export const shoppingCart = (state: id[], action: AnyAction) => {
     }
 }
 
-export const displayedItems = (state: id[], action: AnyAction) => {
+export const displayItems = (state: id[]=INITIAL_STATE.displayItems, action: AnyAction) => {
     switch(action.type) {
         case DisplayItemsActions.ADD_ITEM_TO_DISPLAY:
             return [...state, action.id];
@@ -111,7 +115,7 @@ export const displayedItems = (state: id[], action: AnyAction) => {
     }
 }
 
-export const itemList = (state: IItemList, action: AnyAction) => {
+export const itemList = (state: IItemList=INITIAL_STATE.itemList, action: AnyAction) => {
     switch(action.type) {
         case ItemsActions.GET_DEFAULT_ITEMS:
             console.log('GET_DEFAULT_ITEMS needs to be implemented');
@@ -124,6 +128,6 @@ export const itemList = (state: IItemList, action: AnyAction) => {
     }
 }
 
-export const rootReducer = combineReducers({itemList, displayedItems, shoppingCart});
+export const rootReducer = combineReducers({itemList, displayItems, shoppingCart});
 
 export const store = createStore(rootReducer, INITIAL_STATE);
