@@ -1,14 +1,15 @@
-import { 
-    fakeItemsData,
-    INITIAL_STATE,
-    DisplayItemsActions, 
-    ShoppingCartActions, 
-    ItemsActions,
-    shoppingCart,
-    displayItems,
-    itemList,
-    rootReducer } from './store';
 import { AnyAction } from 'redux';
+
+import { fakeItemsData } from '../../api/fake-items-data';
+import { INITIAL_STATE } from '../store/initial-state';
+import { DisplayItemsActions } from '../actions/display-items.actions';
+import { ShoppingCartActions } from '../actions/shopping-cart.actions';
+import { ItemsActions } from '../actions/items.actions';
+import { shoppingCart } from '../reducers/shopping-cart.reducer';
+import { displayItems } from '../reducers/display-items.reducer';
+import { itemList } from '../reducers/item-list.reducer';
+import { rootReducer } from '../reducers/root-reducer.reducer';
+
 
 const displayItemsActions = new DisplayItemsActions();
 const shoppingCartActions = new ShoppingCartActions();
@@ -127,4 +128,3 @@ describe('Root Reducer', () => {
         expect( rootReducer(INITIAL_STATE, action) ).toEqual( afterState );
     });
 });
-
