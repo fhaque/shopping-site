@@ -1,5 +1,6 @@
 <ul>
   <li *ngFor="let item of (items$ | async)">
+<<<<<<< HEAD
     <div>
       <img src={{item.photoURL}} alt="{{item.name}} image">
       <p>{{item.name}}</p>
@@ -7,5 +8,8 @@
       <p>{{item.price | currency}}</p>
       <button (click)="addToCart(item.id)">Add to Cart</button>
     </div>
+=======
+    {{item.name}}
+>>>>>>> c69b6026302b1fb109212fd44294f0612e0cda74
   </li>
 </ul>
