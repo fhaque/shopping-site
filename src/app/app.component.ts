@@ -10,7 +10,7 @@ import { ItemsActions } from './actions/items.actions';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Shopping Site';
   
   constructor(
     ngRedux: NgRedux<IAppState>,

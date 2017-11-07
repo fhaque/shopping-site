@@ -12,12 +12,14 @@ import { ShoppingCartActions } from './actions/shopping-cart.actions';
 import { IAppState } from './models/app.model';
 import { store } from './store/store';
 import { ItemComponent } from './components/item/item.component';
+import { ShoppingCartBtnComponent } from './components/shopping-cart-btn/shopping-cart-btn.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DisplayItemsComponent,
     ItemComponent,
+    ShoppingCartBtnComponent,
   ],
   imports: [
     BrowserModule,

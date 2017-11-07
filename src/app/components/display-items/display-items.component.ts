@@ -21,7 +21,6 @@ export class DisplayItemsComponent {
     private ngRedux: NgRedux<IAppState>,
     private displayItemsactions: DisplayItemsActions
   ) {
-    // this.items$ = ngRedux.select<id[]>('displayItems').map( (item) => item.map(l => l + 'a') );
     this.items$ = ngRedux.select<id[]>('displayItems').map( ids => {
       const { itemList } = ngRedux.getState();
       return ids.map( id => itemList.items[id] );
