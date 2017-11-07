@@ -1,4 +1,5 @@
 import { IItemsRef, IItem } from '../models/items.model';
+import { IFilterSetting, IFilterSettings } from '../models/filters.model';
 
 export const is = (a: any): Object => {
     return {
@@ -10,17 +11,6 @@ export const is = (a: any): Object => {
         listHas: (b: any): boolean => a.indexOf(b) !== -1,
     };
 };
-
-
-
-export interface IFilterSetting {
-    name: string,
-    comperator: string,
-    value: any,
-}
-
-export type IFilterSettings = IFilterSetting[];
-
 
 export const filterItems = (items: IItemsRef, filterSettings: IFilterSettings): IItemsRef => {
     let filteredItems = {...items};

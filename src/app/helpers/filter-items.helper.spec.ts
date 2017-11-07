@@ -1,4 +1,5 @@
-import { filterItems, IFilterSettings } from './filter-items.helper';
+import { filterItems } from './filter-items.helper';
+import { IFilterSettings } from '../models/filters.model'
 import { IItemsRef, IItem } from '../models/items.model';
 import { fakeItemsData } from '../../api/fake-items-data';
 
@@ -69,5 +70,4 @@ describe('filterItems helper function', () => {
         
         expect( filterItems(fakeItemsData, filterSettings) ).toEqual( filteredItems );
     });
-
 });

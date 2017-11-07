@@ -5,15 +5,20 @@ import { INITIAL_STATE } from '../store/initial-state';
 import { DisplayItemsActions } from '../actions/display-items.actions';
 import { ShoppingCartActions } from '../actions/shopping-cart.actions';
 import { ItemsActions } from '../actions/items.actions';
+import { FilterActions } from '../actions/filter.actions';
 import { shoppingCart } from '../reducers/shopping-cart.reducer';
 import { displayItems } from '../reducers/display-items.reducer';
 import { itemList } from '../reducers/item-list.reducer';
+import { filters } from '../reducers/filters.reducer';
 import { rootReducer } from '../reducers/root-reducer.reducer';
+
+import { IFilterSetting, IFilterSettings } from '../models/filters.model';
 
 
 const displayItemsActions = new DisplayItemsActions();
 const shoppingCartActions = new ShoppingCartActions();
 const itemsActions = new ItemsActions();
+const filterActions = new FilterActions();
 
 describe('Display Items Actions', () => {
     it('should give an ADD_ITEM_TO_DISPLAY action', () => {
@@ -57,6 +62,29 @@ describe('Items Actions', () => {
         const expectedAction: AnyAction = { type: ItemsActions.GET_ITEMS_BY_QUERY, query };
 
         expect( itemsActions.getItemsByQuery(query) ).toEqual( expectedAction );
+    });
+
+});
+
+describe('Filter Actions', () => {
+    it('should give an CLEAR_ALL_FILTERS action', () => {
+        const expectedAction: AnyAction = { type: FilterActions.CLEAR_ALL_FILTERS };
+
+        expect( filterActions.clearFilters() ).toEqual( expectedAction );
+    });
+
+    it('should give an ADD_FILTER_SETTING action with a filter setting', () => {
+        const filter: IFilterSetting = { name: 'categories', comperator: 'listHas', value: 'home' };
+        const expectedAction: AnyAction = { type: FilterActions.ADD_FILTER_SETTING, filter };
+
+        expect( filterActions.addFilter(filter) ).toEqual( expectedAction );
+    });
+
+    it('should give an REMOVE_FILTER_SETTING action with a filter setting name', () => {
+        const name = 'rating';
+        const expectedAction: AnyAction = { type: FilterActions.REMOVE_FILTER_SETTING, name };
+
+        expect( filterActions.removeFilter(name) ).toEqual( expectedAction );
     });
 
 });
@@ -120,6 +148,35 @@ describe('Item List Reducer', () => {
         const afterState = { items: fakeItemsData };
 
         expect( itemList(undefined, action) ).toEqual( afterState );
+    });
+});
+
+describe('Filters reducer', () => {
+    beforeEach( () => {
+        this.beforeState = <IFilterSettings>[
+            { name: 'categories', comperator: 'listHas', value: 'home' },
+            { name: 'rating', comperator: 'greaterThan', value: 2 },
+        ];  
+    });
+    it('should clear all filters with CLEAR_ALL_FILTERS action', () => {
+        const action = { type: FilterActions.CLEAR_ALL_FILTERS };
+        const afterState = [];
+
+        expect( filters(this.beforeState, action) ).toEqual( afterState );
+    });
+    it('should clear all filters with ADD_FILTER_SETTING action', () => {
+        const filter = { name: 'price', comperator: 'greaterThan', value: 3 };
+        const action = { type: FilterActions.ADD_FILTER_SETTING, filter };
+        const afterState = [...this.beforeState, filter];
+
+        expect( filters(this.beforeState, action) ).toEqual( afterState );
+    });
+    it('should clear all filters with REMOVE_FILTER_SETTING action', () => {
+        const name = 'categories';
+        const action = { type: FilterActions.REMOVE_FILTER_SETTING, name };
+        const afterState = [ { name: 'rating', comperator: 'greaterThan', value: 2 } ];
+
+        expect( filters(this.beforeState, action) ).toEqual( afterState );
     });
 });
 
