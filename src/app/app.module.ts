@@ -11,11 +11,13 @@ import { ShoppingCartActions } from './actions/shopping-cart.actions';
 
 import { IAppState } from './models/app.model';
 import { store } from './store/store';
+import { ItemComponent } from './components/item/item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     DisplayItemsComponent,
+    ItemComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,7 @@
+<div>
+    <img src={{item.photoURL}} alt="{{item.name}} image">
+    <p>{{item.name}}</p>
+    <p>Rating: {{item.rating}}</p>
+    <p>{{item.price | currency}}</p>
+    <button (click)="addToCart(item.id)">Add to Cart</button>
+</div>

@@ -7,7 +7,7 @@ import { IAppState } from '../../models/app.model';
 import { IItemList, IItem } from '../../models/items.model';
 import { id } from '../../models/items.model';
 import { DisplayItemsActions } from '../../actions/display-items.actions';
-import { ShoppingCartActions } from '../../actions/shopping-cart.actions';
+
 
 @Component({
   selector: 'display-items',
@@ -19,8 +19,7 @@ export class DisplayItemsComponent {
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private displayItemsactions: DisplayItemsActions,
-    private shoppingCartActions: ShoppingCartActions,
+    private displayItemsactions: DisplayItemsActions
   ) {
     // this.items$ = ngRedux.select<id[]>('displayItems').map( (item) => item.map(l => l + 'a') );
     this.items$ = ngRedux.select<id[]>('displayItems').map( ids => {
@@ -30,10 +29,4 @@ export class DisplayItemsComponent {
     ngRedux.dispatch( displayItemsactions.addItem('0') );
     ngRedux.dispatch( displayItemsactions.addItem('8ch') );
   }
-
-  addToCart(id: id) {
-    
-    this.ngRedux.dispatch( this.shoppingCartActions.addItem(id) );
-  }
-
 }
