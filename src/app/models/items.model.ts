@@ -16,6 +16,10 @@ export interface IItemList {
     items: IItemsRef,
 }
 
+export interface IItemCount {
+    [id: string]: number
+}
+
 export interface IAppState {
     itemList: IItemList,
     displayItems: id[],

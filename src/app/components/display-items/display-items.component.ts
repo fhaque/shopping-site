@@ -7,6 +7,7 @@ import { IAppState } from '../../models/app.model';
 import { IItemList, IItem } from '../../models/items.model';
 import { id } from '../../models/items.model';
 import { DisplayItemsActions } from '../../actions/display-items.actions';
+import { ShoppingCartActions } from '../../actions/shopping-cart.actions';
 
 @Component({
   selector: 'display-items',
@@ -17,16 +18,22 @@ export class DisplayItemsComponent {
   readonly  items$: Observable<IItem[]>;
 
   constructor(
-    ngRedux: NgRedux<IAppState>,
-    actions: DisplayItemsActions
+    private ngRedux: NgRedux<IAppState>,
+    private displayItemsactions: DisplayItemsActions,
+    private shoppingCartActions: ShoppingCartActions,
   ) {
     // this.items$ = ngRedux.select<id[]>('displayItems').map( (item) => item.map(l => l + 'a') );
     this.items$ = ngRedux.select<id[]>('displayItems').map( ids => {
       const { itemList } = ngRedux.getState();
       return ids.map( id => itemList.items[id] );
     });
-    ngRedux.dispatch( actions.addItem('0') );
-    ngRedux.dispatch( actions.addItem('8ch') );
+    ngRedux.dispatch( displayItemsactions.addItem('0') );
+    ngRedux.dispatch( displayItemsactions.addItem('8ch') );
+  }
+
+  addToCart(id: id) {
+    
+    this.ngRedux.dispatch( this.shoppingCartActions.addItem(id) );
   }
 
 }
