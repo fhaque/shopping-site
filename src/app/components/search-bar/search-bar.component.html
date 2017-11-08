@@ -1,4 +1,4 @@
-<form>
-  <input type="search">
-  <input type="submit" value="Search">
+<form (submit)="$event.preventDefault(); handleSubmit(searchBox.value)">
+  <input #searchBox type="search" name="searchBox" [value]="(searchTerm$ | async) || ''" (keyup)="handleKeyUp(searchBox.value)">
+  <input type="submit">
 </form>
