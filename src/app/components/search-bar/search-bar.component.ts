@@ -25,5 +25,6 @@ export class SearchBarComponent {
 
   handleSubmit(searchTerm: string) {
     console.log('from submit', searchTerm);
+    //TODO: add search submit functionality
   }
 }
