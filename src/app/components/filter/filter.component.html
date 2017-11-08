@@ -1,13 +1,22 @@
 <div>
   <p>Filter:</p>
-  <button>Clear Filters</button>
+  <button (click)="$event.preventDefault; clearFilters()">Clear Filters</button>
   <p>Categories:</p>
   <ul>
-    <li *ngFor="let category of (categories$ | async)">{{category}}</li>
+    <li *ngFor="let category of (categories$ | async)" (click)="applyCategoriesFilter(category)">
+      <ng-container *ngIf="(selectedCategory$ | async) === category">
+        <span>{{category}}</span>
+      </ng-container>
+      <ng-container *ngIf="(selectedCategory$ | async) !== category">
+        <a href="#" (click)="$event.preventDefault()">{{category}}</a>
+      </ng-container>
+      
+      
+    </li>
   </ul>
   <div>
     <label>Rating:
-      <input type="range" min="1" max="5" value="1" (change)="applyRatingFilter($event.target.value)">
+      <input type="range" min="1" max="5" [value]="(minRating$ | async)" (change)="applyRatingFilter($event.target.value)">
     </label>
   </div>
 </div>

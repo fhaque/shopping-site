@@ -4,7 +4,7 @@ import 'rxjs/add/operator/reduce';
 
 import { NgRedux } from '@angular-redux/store';
 import { IAppState } from '../../models/app.model';
-import { IItemCount } from '../../models/items.model';
+import { IItemCount, IItem } from '../../models/items.model';
 
 @Component({
   selector: 'shopping-cart-btn',
@@ -12,14 +12,14 @@ import { IItemCount } from '../../models/items.model';
   styleUrls: ['./shopping-cart-btn.component.css']
 })
 export class ShoppingCartBtnComponent {
-  items: Observable<IItemCount>;
-  numOfItems: Observable<number>;
+  readonly cart$: Observable<IItemCount>;
+  readonly numOfItems$: Observable<number>;
 
   constructor(
     private ngRedux: NgRedux<IAppState>
   ) { 
-    this.items = ngRedux.select<IItemCount>('shoppingCart');
-    this.numOfItems = this.items
+    this.cart$ = ngRedux.select<IItemCount>('shoppingCart');
+    this.numOfItems$ = this.cart$
       .map( cart => Object.keys(cart).reduce( (acc, key) => acc + cart[key], 0) );
   }
 }
