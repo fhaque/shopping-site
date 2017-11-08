@@ -1,14 +1,23 @@
 import { IItemsRef, IItem } from '../models/items.model';
 import { IFilterSetting, IFilterSettings } from '../models/filters.model';
 
+export const filterComperatorEnum = {
+    'GREATER_THAN':             'greaterThan',
+    'GREATER_THAN_OR_EQUAL':    'greaterThanOrEqual',
+    'LESS_THAN':                'lessThan',
+    'LESS_THAN_OR_EQUAL':       'lessThanOrEqual',
+    'EQUAL':                    'equal',
+    'LIST_HAS':                 'listHas',
+}
+
 export const is = (a: any): Object => {
     return {
-        greaterThan: (b: any): boolean => a > b,
-        greaterThanOrEqual: (b: any): boolean => a >= b,
-        lessThan: (b: any): boolean => a < b,
-        lessThanOrEqual: (b: any): boolean => a <= b,
-        equal: (b: any): boolean => a === b,
-        listHas: (b: any): boolean => a.indexOf(b) !== -1,
+        [filterComperatorEnum.GREATER_THAN]:            (b: any): boolean => a > b,
+        [filterComperatorEnum.GREATER_THAN_OR_EQUAL]:   (b: any): boolean => a >= b,
+        [filterComperatorEnum.LESS_THAN]:               (b: any): boolean => a < b,
+        [filterComperatorEnum.LESS_THAN_OR_EQUAL]:      (b: any): boolean => a <= b,
+        [filterComperatorEnum.EQUAL]:                   (b: any): boolean => a === b,
+        [filterComperatorEnum.LIST_HAS]:                (b: any): boolean => a.indexOf(b) !== -1,
     };
 };
 
