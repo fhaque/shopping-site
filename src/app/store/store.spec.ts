@@ -73,11 +73,11 @@ describe('Filter Actions', () => {
         expect( filterActions.clearFilters() ).toEqual( expectedAction );
     });
 
-    it('should give an ADD_FILTER_SETTING action with a filter setting', () => {
+    it('should give an SET_FILTER_SETTING action with a filter setting', () => {
         const filter: IFilterSetting = { name: 'categories', comperator: 'listHas', value: 'home' };
-        const expectedAction: AnyAction = { type: FilterActions.ADD_FILTER_SETTING, filter };
+        const expectedAction: AnyAction = { type: FilterActions.SET_FILTER_SETTING, filter };
 
-        expect( filterActions.addFilter(filter) ).toEqual( expectedAction );
+        expect( filterActions.setFilter(filter) ).toEqual( expectedAction );
     });
 
     it('should give an REMOVE_FILTER_SETTING action with a filter setting name', () => {
@@ -153,28 +153,28 @@ describe('Item List Reducer', () => {
 
 describe('Filters reducer', () => {
     beforeEach( () => {
-        this.beforeState = <IFilterSettings>[
-            { name: 'categories', comperator: 'listHas', value: 'home' },
-            { name: 'rating', comperator: 'greaterThan', value: 2 },
-        ];  
+        this.beforeState = <IFilterSettings>{
+            'categories':   { name: 'categories', comperator: 'listHas', value: 'home' },
+            'rating':       { name: 'rating', comperator: 'greaterThan', value: 2 },
+        };  
     });
     it('should clear all filters with CLEAR_ALL_FILTERS action', () => {
         const action = { type: FilterActions.CLEAR_ALL_FILTERS };
-        const afterState = [];
+        const afterState = {};
 
         expect( filters(this.beforeState, action) ).toEqual( afterState );
     });
     it('should clear all filters with ADD_FILTER_SETTING action', () => {
         const filter = { name: 'price', comperator: 'greaterThan', value: 3 };
-        const action = { type: FilterActions.ADD_FILTER_SETTING, filter };
-        const afterState = [...this.beforeState, filter];
+        const action = { type: FilterActions.SET_FILTER_SETTING, filter };
+        const afterState = {...this.beforeState, [filter.name]: filter };
 
         expect( filters(this.beforeState, action) ).toEqual( afterState );
     });
     it('should clear all filters with REMOVE_FILTER_SETTING action', () => {
         const name = 'categories';
         const action = { type: FilterActions.REMOVE_FILTER_SETTING, name };
-        const afterState = [ { name: 'rating', comperator: 'greaterThan', value: 2 } ];
+        const afterState = {'rating': { name: 'rating', comperator: 'greaterThan', value: 2 } };
 
         expect( filters(this.beforeState, action) ).toEqual( afterState );
     });

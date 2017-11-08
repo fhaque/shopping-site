@@ -4,4 +4,4 @@ export interface IFilterSetting {
     value: any,
 }
 
-export type IFilterSettings = IFilterSetting[];
+export type IFilterSettings = { [name: string]: IFilterSetting };

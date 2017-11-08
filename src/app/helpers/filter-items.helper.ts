@@ -15,7 +15,8 @@ export const is = (a: any): Object => {
 export const filterItems = (items: IItemsRef, filterSettings: IFilterSettings): IItemsRef => {
     let filteredItems = {...items};
     //apply filter to each item
-    filterSettings.forEach( (filter: IFilterSetting) => {
+    Object.keys(filterSettings).forEach( key => {
+        const filter: IFilterSetting = filterSettings[key];
         //filter out the keys in filteredItems using the filterSetting
         let filteredKeys = Object.keys(filteredItems)
             .filter( key => is(filteredItems[key][filter.name])[filter.comperator](filter.value) );

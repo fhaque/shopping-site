@@ -5,7 +5,7 @@ import { fakeItemsData } from '../../api/fake-items-data';
 
 describe('filterItems helper function', () => {
     it('should filter based on category of item', () => {
-        const filterSettings: IFilterSettings = [ {name: 'categories', comperator: 'listHas', value: 'home'} ];
+        const filterSettings: IFilterSettings = { 'categories': {name: 'categories', comperator: 'listHas', value: 'home'} };
         const filteredItems: IItemsRef = { 
             '0': {
                 id: '0',
@@ -29,7 +29,7 @@ describe('filterItems helper function', () => {
     });
 
     it('should filter minimum rating of item', () => {
-        const filterSettings: IFilterSettings = [ {name: 'rating', comperator: 'greaterThan', value: 2} ];
+        const filterSettings: IFilterSettings = { 'rating': {name: 'rating', comperator: 'greaterThan', value: 2} };
         const filteredItems: IItemsRef = { 
             '8ch': {
                 id: '8ch',
@@ -53,10 +53,10 @@ describe('filterItems helper function', () => {
     });
 
     it('should compose filter settings', () => {
-        const filterSettings: IFilterSettings = [ 
-            {name: 'rating', comperator: 'greaterThan', value: 2},
-            {name: 'categories', comperator: 'listHas', value: 'home'},
-        ];
+        const filterSettings: IFilterSettings = {
+            'rating':       {name: 'rating', comperator: 'greaterThan', value: 2},
+            'categories':   {name: 'categories', comperator: 'listHas', value: 'home'},
+        };
         const filteredItems: IItemsRef = { 
             '6cb': {
                 id: '6cb',

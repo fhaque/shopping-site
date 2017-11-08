@@ -4,5 +4,5 @@ export const INITIAL_STATE: IAppState = {
     itemList: {items:{}},
     displayItems: [],
     shoppingCart: {},
-    filters: []
+    filters: {}
 }
