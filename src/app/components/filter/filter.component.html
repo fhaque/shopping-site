@@ -8,10 +8,8 @@
         <span>{{category}}</span>
       </ng-container>
       <ng-container *ngIf="(selectedCategory$ | async) !== category">
-        <a href="#" (click)="$event.preventDefault()">{{category}}</a>
+        <a href="#" (click)="$event.preventDefault()">{{category | titlecase}}</a>
       </ng-container>
-      
-      
     </li>
   </ul>
   <div>
