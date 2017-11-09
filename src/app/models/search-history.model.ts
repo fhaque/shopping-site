@@ -1,3 +1,6 @@
-export interface ISearchHistory {
-    [searchTerm: string]: true,
+export interface ISearchHistoryItem {
+    searchTerm: string,
+    date: number
 }
+
+export interface ISearchHistory extends Array<ISearchHistoryItem> {}

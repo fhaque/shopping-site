@@ -2,15 +2,21 @@ import { AnyAction } from 'redux';
 
 import { fakeItemsData } from '../../api/fake-items-data';
 import { INITIAL_STATE } from '../store/initial-state';
-import { DisplayItemsActions } from '../actions/display-items.actions';
-import { ShoppingCartActions } from '../actions/shopping-cart.actions';
-import { ItemsActions } from '../actions/items.actions';
-import { FilterActions } from '../actions/filter.actions';
-import { shoppingCart } from '../reducers/shopping-cart.reducer';
-import { displayItems } from '../reducers/display-items.reducer';
-import { itemList } from '../reducers/item-list.reducer';
-import { filters } from '../reducers/filters.reducer';
-import { rootReducer } from '../reducers/root-reducer.reducer';
+
+import { ISearchHistory } from '../models/search-history.model';
+
+import { DisplayItemsActions }  from '../actions/display-items.actions';
+import { ShoppingCartActions }  from '../actions/shopping-cart.actions';
+import { ItemsActions }         from '../actions/items.actions';
+import { FilterActions }        from '../actions/filter.actions';
+import { SearchHistoryActions } from '../actions/search-history.actions';
+
+import { shoppingCart }     from '../reducers/shopping-cart.reducer';
+import { displayItems }     from '../reducers/display-items.reducer';
+import { itemList }         from '../reducers/item-list.reducer';
+import { filters }          from '../reducers/filters.reducer';
+import { searchHistory }    from '../reducers/search-history.reducer';
+import { rootReducer }      from '../reducers/root-reducer.reducer';
 
 import { IFilterSetting, IFilterSettings } from '../models/filters.model';
 
@@ -19,6 +25,7 @@ const displayItemsActions = new DisplayItemsActions();
 const shoppingCartActions = new ShoppingCartActions();
 const itemsActions = new ItemsActions();
 const filterActions = new FilterActions();
+const searchHistoryActions = new SearchHistoryActions();
 
 describe('Display Items Actions', () => {
     it('should give an ADD_ITEM_TO_DISPLAY action', () => {
@@ -87,6 +94,16 @@ describe('Filter Actions', () => {
         expect( filterActions.removeFilter(name) ).toEqual( expectedAction );
     });
 
+});
+
+describe('Search History Actions', () => {
+    it('should give an ADD_TO_SEARCH_HISTORY action', () => {
+        const searchTerm = 'bananas';
+        const date = Date.now();
+        const expectedAction: AnyAction = { type: SearchHistoryActions.ADD_TO_SEARCH_HISTORY, searchTerm, date };
+
+        expect( searchHistoryActions.addSearchTerm(searchTerm, date) ).toEqual( expectedAction );
+    });
 });
 
 describe('Shopping Cart Reducer', () => {
@@ -177,6 +194,23 @@ describe('Filters reducer', () => {
         const afterState = {'rating': { name: 'rating', comperator: 'greaterThan', value: 2 } };
 
         expect( filters(this.beforeState, action) ).toEqual( afterState );
+    });
+});
+
+describe('Search History Reducer', () => {
+    beforeEach( () => {
+        this.beforeState = <ISearchHistory>[ 
+            { searchTerm:'cows', date: 2 }, 
+            { searchTerm:'dogs', date: 3 }, 
+        ];
+    });
+    it('should append new search term to new state', () => {
+        const searchTerm = 'bananas';
+        const date = Date.now();
+        const action = { type: SearchHistoryActions.ADD_TO_SEARCH_HISTORY, searchTerm, date };
+        const afterState = <ISearchHistory>[...this.beforeState, {searchTerm, date}];
+
+        expect( searchHistory(this.beforeState, action) ).toEqual( afterState );
     });
 });
 

@@ -5,5 +5,5 @@ export const INITIAL_STATE: IAppState = {
     displayItems: [],
     shoppingCart: {},
     filters: {},
-    searchHistory: {}
+    searchHistory: [],
 }

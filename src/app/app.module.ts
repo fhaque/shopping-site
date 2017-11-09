@@ -9,6 +9,7 @@ import { DisplayItemsActions }  from './actions/display-items.actions';
 import { ItemsActions }         from './actions/items.actions';
 import { ShoppingCartActions }  from './actions/shopping-cart.actions';
 import { FilterActions }        from './actions/filter.actions';
+import { SearchHistoryActions } from './actions/search-history.actions';
 
 import { IAppState }                from './models/app.model';
 import { store }                    from './store/store';
@@ -35,6 +36,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     ItemsActions,
     ShoppingCartActions,
     FilterActions,
+    SearchHistoryActions,
   ],
   bootstrap: [AppComponent]
 })
