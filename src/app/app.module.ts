@@ -17,6 +17,9 @@ import { ItemComponent }            from './components/item/item.component';
 import { ShoppingCartBtnComponent } from './components/shopping-cart-btn/shopping-cart-btn.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { HeaderComponent } from './components/header/header.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { WelcomeInfoComponent } from './components/welcome-info/welcome-info.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +29,9 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     ShoppingCartBtnComponent,
     FilterComponent,
     SearchBarComponent,
+    HeaderComponent,
+    SearchResultsComponent,
+    WelcomeInfoComponent,
   ],
   imports: [
     BrowserModule,
