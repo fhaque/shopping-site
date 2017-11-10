@@ -1,6 +1,7 @@
 import { BrowserModule }          from '@angular/platform-browser';
 import { NgModule }               from '@angular/core';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { RouterModule }           from '@angular/router';
 
 import { AppComponent }           from './app.component';
 import { DisplayItemsComponent }  from './components/display-items/display-items.component';
@@ -15,11 +16,12 @@ import { IAppState }                from './models/app.model';
 import { store }                    from './store/store';
 import { ItemComponent }            from './components/item/item.component';
 import { ShoppingCartBtnComponent } from './components/shopping-cart-btn/shopping-cart-btn.component';
-import { FilterComponent } from './components/filter/filter.component';
-import { SearchBarComponent } from './components/search-bar/search-bar.component';
-import { HeaderComponent } from './components/header/header.component';
-import { SearchResultsComponent } from './components/search-results/search-results.component';
-import { WelcomeInfoComponent } from './components/welcome-info/welcome-info.component';
+import { FilterComponent }          from './components/filter/filter.component';
+import { SearchBarComponent }       from './components/search-bar/search-bar.component';
+import { HeaderComponent }          from './components/header/header.component';
+import { SearchResultsComponent }   from './components/search-results/search-results.component';
+import { WelcomeInfoComponent }     from './components/welcome-info/welcome-info.component';
+import { appRoutes } from './app.routes';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { WelcomeInfoComponent } from './components/welcome-info/welcome-info.com
   ],
   imports: [
     BrowserModule,
-    NgReduxModule
+    NgReduxModule,
+    RouterModule.forRoot(appRoutes),
   ],
   providers: [
     DisplayItemsActions,
