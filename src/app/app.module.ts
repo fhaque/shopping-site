@@ -2,6 +2,10 @@ import { BrowserModule }          from '@angular/platform-browser';
 import { NgModule }               from '@angular/core';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import { RouterModule }           from '@angular/router';
+import { HttpClientModule }    from '@angular/common/http';
+
+import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+import { InMemoryDataService }            from './in-memory-data-service';
 
 import { AppComponent }           from './app.component';
 import { DisplayItemsComponent }  from './components/display-items/display-items.component';
@@ -21,7 +25,12 @@ import { SearchBarComponent }       from './components/search-bar/search-bar.com
 import { HeaderComponent }          from './components/header/header.component';
 import { SearchResultsComponent }   from './components/search-results/search-results.component';
 import { WelcomeInfoComponent }     from './components/welcome-info/welcome-info.component';
-import { appRoutes } from './app.routes';
+
+import { appRoutes }  from './app.routes';
+
+import { ApiService }               from './services/api.service';
+import { AppService }               from './services/app.service';
+import { TransformDataHelper }      from './services/transform-data.helper';
 
 @NgModule({
   declarations: [
@@ -39,6 +48,10 @@ import { appRoutes } from './app.routes';
     BrowserModule,
     NgReduxModule,
     RouterModule.forRoot(appRoutes),
+    HttpClientModule,
+    HttpClientInMemoryWebApiModule.forRoot(
+      InMemoryDataService, { dataEncapsulation: false }
+    ),
   ],
   providers: [
     DisplayItemsActions,
@@ -46,6 +59,9 @@ import { appRoutes } from './app.routes';
     ShoppingCartActions,
     FilterActions,
     SearchHistoryActions,
+    ApiService,
+    AppService,
+    TransformDataHelper
   ],
   bootstrap: [AppComponent]
 })
