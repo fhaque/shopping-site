@@ -31,6 +31,8 @@ import { appRoutes }  from './app.routes';
 import { ApiService }               from './services/api.service';
 import { AppService }               from './services/app.service';
 import { TransformDataHelper }      from './services/transform-data.helper';
+import { SearchHistoryComponent } from './components/search-history/search-history.component';
+import { SearchHistoryListComponent } from './components/search-history-list/search-history-list.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,8 @@ import { TransformDataHelper }      from './services/transform-data.helper';
     HeaderComponent,
     SearchResultsComponent,
     WelcomeInfoComponent,
+    SearchHistoryComponent,
+    SearchHistoryListComponent,
   ],
   imports: [
     BrowserModule,
