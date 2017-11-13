@@ -1,6 +1,7 @@
 import { BrowserModule }          from '@angular/platform-browser';
 import { NgModule }               from '@angular/core';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import logger                     from 'redux-logger';
 import { RouterModule }           from '@angular/router';
 import { HttpClientModule }    from '@angular/common/http';
 
@@ -16,8 +17,11 @@ import { ShoppingCartActions }  from './actions/shopping-cart.actions';
 import { FilterActions }        from './actions/filter.actions';
 import { SearchHistoryActions } from './actions/search-history.actions';
 
+// import { store }                    from './store/store';
+import { rootReducer } from './reducers/root-reducer.reducer';
 import { IAppState }                from './models/app.model';
-import { store }                    from './store/store';
+import { INITIAL_STATE } from './store/initial-state';
+
 import { ItemComponent }            from './components/item/item.component';
 import { ShoppingCartBtnComponent } from './components/shopping-cart-btn/shopping-cart-btn.component';
 import { FilterComponent }          from './components/filter/filter.component';
@@ -25,14 +29,17 @@ import { SearchBarComponent }       from './components/search-bar/search-bar.com
 import { HeaderComponent }          from './components/header/header.component';
 import { SearchResultsComponent }   from './components/search-results/search-results.component';
 import { WelcomeInfoComponent }     from './components/welcome-info/welcome-info.component';
+import { SearchHistoryComponent } from './components/search-history/search-history.component';
+import { SearchHistoryListComponent } from './components/search-history-list/search-history-list.component';
 
 import { appRoutes }  from './app.routes';
 
 import { ApiService }               from './services/api.service';
 import { AppService }               from './services/app.service';
 import { TransformDataHelper }      from './services/transform-data.helper';
-import { SearchHistoryComponent } from './components/search-history/search-history.component';
-import { SearchHistoryListComponent } from './components/search-history-list/search-history-list.component';
+import { GetItemsEpic } from './epics/get-items.epic';
+import { combineEpics, createEpicMiddleware } from 'redux-observable';
+
 
 @NgModule({
   declarations: [
@@ -63,16 +70,25 @@ import { SearchHistoryListComponent } from './components/search-history-list/sea
     ShoppingCartActions,
     FilterActions,
     SearchHistoryActions,
+    
     ApiService,
     AppService,
-    TransformDataHelper
+    TransformDataHelper,
+
+    GetItemsEpic,
   ],
   bootstrap: [AppComponent]
 })
 export class AppModule {
 
-  constructor( ngRedux: NgRedux<IAppState> ) {
-    ngRedux.provideStore(store);
+  constructor( 
+    ngRedux: NgRedux<IAppState>,
+    getItemsEpic: GetItemsEpic,
+   ) {
+    const epics = combineEpics(getItemsEpic.getDefaultItems);
+    
+    ngRedux.configureStore(rootReducer, INITIAL_STATE, [logger, createEpicMiddleware(epics)] );
+    // ngRedux.provideStore(store);
   }
 
 }

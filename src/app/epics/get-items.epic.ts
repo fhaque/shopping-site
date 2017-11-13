@@ -1,18 +1,30 @@
-import { AnyAction, Store } from "redux";
-import { Observable } from "rxjs/Observable";
+import { Inject, Injectable } from "@angular/core";
+
+import { AnyAction, Store, Action } from "redux";
 import { ofType } from 'redux-observable';
-import { ItemsActions } from "../actions/items.actions";
+
+import { Observable } from "rxjs/Observable";
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
-import { Inject } from "@angular/core";
-import { AppService } from "../services/app.service";
+import 'rxjs/add/operator/mergeMap';
 
-export const getItemsEpic = (action$: Observable<AnyAction>): Observable<AnyAction> =>
-    action$.ofType(ItemsActions.GET_DEFAULT_ITEMS)
-        .do( (action: AnyAction) => console.log('Epic sees action: ', action.type) )
-        .do( () => {
-            let appService: AppService;
-            @Inject('AppService') appService;
-            appService.getAllItems().map( itemsRef => Object.keys(itemsRef) ).subscribe( name => { console.log(name)});
-        })
-        .map(() => <AnyAction>{type: ''});
+import { ItemsActions } from "../actions/items.actions";
+import { AppService } from "../services/app.service";
+import { IItemsRef } from "../models/items.model";
+
+
+@Injectable()
+export class GetItemsEpic {
+    constructor(
+        private appService: AppService,
+        private itemsActions: ItemsActions
+    ) {}
+
+    getDefaultItems = (action$: Observable<AnyAction>): Observable<AnyAction> => {
+        return action$.ofType(ItemsActions.GET_DEFAULT_ITEMS)
+            .do( (action: AnyAction) => console.log('Epic sees action: ', action.type) )
+            .mergeMap( () => this.appService.getAllItems() )
+            .map((items:IItemsRef) => this.itemsActions.recievedDefaultItems(items, Date.now()) );
+    }
+    
+}
