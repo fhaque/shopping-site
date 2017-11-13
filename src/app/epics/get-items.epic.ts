@@ -20,7 +20,7 @@ export class GetItemsEpic {
         private itemsActions: ItemsActions
     ) {}
 
-    getDefaultItems = (action$: Observable<AnyAction>): Observable<AnyAction> => {
+    getDefaultItems = (action$): Observable<AnyAction> => {
         return action$.ofType(ItemsActions.GET_DEFAULT_ITEMS)
             .do( (action: AnyAction) => console.log('Epic sees action: ', action.type) )
             .mergeMap( () => this.appService.getAllItems() )
