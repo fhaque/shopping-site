@@ -15,6 +15,8 @@ export interface IItemsRef {
 
 export interface IItemList {
     items: IItemsRef,
+    gettingData: boolean,
+    recievedOn: number,
 }
 
 export interface IItemCount {
