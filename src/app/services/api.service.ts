@@ -7,6 +7,8 @@ import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class ApiService {
+    private apiKey = 'nmgk8d5wz7a58bqdts3n3zrk';
+    private apiURLTrends = `https://api.walmartlabs.com/v1/trends?format=json&apiKey=${this.apiKey}`;
     private apiURL = 'api/items';
     constructor(
         private http: HttpClient
@@ -14,7 +16,7 @@ export class ApiService {
 
     getAllItems() {
         return this.http
-            .get(this.apiURL)
+            .get(this.apiURLTrends)
             .pipe( catchError( this.handleError('getAllItems', {}) ) );
     }
 

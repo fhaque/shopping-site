@@ -3,10 +3,11 @@ import { NgModule }               from '@angular/core';
 import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import logger                     from 'redux-logger';
 import { RouterModule }           from '@angular/router';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule }       from '@angular/common/http';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService }            from './in-memory-data-service';
+
+// import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryDataService }            from './in-memory-data-service';
 
 import { AppComponent }           from './app.component';
 import { DisplayItemsComponent }  from './components/display-items/display-items.component';
@@ -41,6 +42,7 @@ import { GetItemsEpic } from './epics/get-items.epic';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,9 +62,9 @@ import { combineEpics, createEpicMiddleware } from 'redux-observable';
     NgReduxModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    ),
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // ),
   ],
   providers: [
     DisplayItemsActions,

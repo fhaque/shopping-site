@@ -28,7 +28,12 @@ export const filterItems = (items: IItemsRef, filterSettings: IFilterSettings): 
         const filter: IFilterSetting = filterSettings[key];
         //filter out the keys in filteredItems using the filterSetting
         let filteredKeys = Object.keys(filteredItems)
-            .filter( key => is(filteredItems[key][filter.name])[filter.comperator](filter.value) );
+            .filter( key => {
+                if (filteredItems[key] !== null ) {
+                    is(filteredItems[key][filter.name])[filter.comperator](filter.value);
+                }
+                return true; //don't filter if no value in item property.
+            });
 
         //craete a new filteredItems with the new filtered keys
         filteredItems = {};
