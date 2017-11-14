@@ -5,7 +5,7 @@ import { ofType } from 'redux-observable';
 
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/zip';
-import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
@@ -32,15 +32,21 @@ export class GetItemsEpic {
 
     getItemsByQuery = (action$): Observable<AnyAction> => {
         const query$: Observable<string> = action$.ofType(ItemsActions.GET_ITEMS_BY_QUERY)
-            .do( (action: AnyAction) =>  console.log('Epic sees action: ', action.type) )
             .map( (action: AnyAction) => action.query );
 
-        const items$ = query$.mergeMap( query => this.appService.getItemsByQuery(query) );
+        const items$: Observable<IItemsRef> = query$
+            .mergeMap( (query:string) => this.appService.getItemsByQuery(query) );
+
+        const recievedItemsByQueryAction$: Observable<AnyAction> = items$
+            .map( (items: IItemsRef) => this.itemsActions.recievedItemsByQuery(items, Date.now()) );
 
         // Save Search History term after the appService retrieved data.
-        return Observable.zip(query$, items$, (query: string, items:IItemsRef) =>
-            this.searchHistoryActions.addSearchTerm(query, Date.now())
-        );
+        const searchHistoryAction$: Observable<AnyAction> = Observable
+            .zip(query$, items$, (query: string, items:IItemsRef) =>
+                this.searchHistoryActions.addSearchTerm(query, Date.now())
+            );
+
+        return Observable.merge(recievedItemsByQueryAction$, searchHistoryAction$);
     }
     
 }

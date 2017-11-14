@@ -17,4 +17,20 @@ describe('Items Actions', () => {
         expect( itemsActions.getItemsByQuery(query) ).toEqual( expectedAction );
     });
 
+    it('should give an RECIEVED_ITEMS_BY_QUERY action', () => {
+        const items = {};
+        const recievedOn = Date.now();
+        const expectedAction: AnyAction = { type: ItemsActions.RECIEVED_ITEMS_BY_QUERY, items, recievedOn };
+
+        expect( itemsActions.recievedItemsByQuery(items, recievedOn) ).toEqual( expectedAction );
+    });
+
+    it('should give an RECIEVED_DEFAULT_ITEMS action', () => {
+        const items = {};
+        const recievedOn = Date.now();
+        const expectedAction: AnyAction = { type: ItemsActions.RECIEVED_DEFAULT_ITEMS, items, recievedOn };
+
+        expect( itemsActions.recievedDefaultItems(items, recievedOn) ).toEqual( expectedAction );
+    });
+
 });

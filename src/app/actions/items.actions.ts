@@ -22,6 +22,6 @@ export class ItemsActions {
     }
 
     recievedItemsByQuery(items: IItemsRef, recievedOn: number): AnyAction {
-        return { type: ItemsActions.GET_ITEMS_BY_QUERY, items, recievedOn };
+        return { type: ItemsActions.RECIEVED_ITEMS_BY_QUERY, items, recievedOn };
     }
 }

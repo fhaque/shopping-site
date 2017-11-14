@@ -7,9 +7,11 @@ import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class ApiService {
-    private apiKey = 'nmgk8d5wz7a58bqdts3n3zrk';
-    private apiURLTrends = `https://api.walmartlabs.com/v1/trends?format=json&apiKey=${this.apiKey}`;
-    private apiURL = 'api/items';
+    private readonly apiKey = 'nmgk8d5wz7a58bqdts3n3zrk';
+    private readonly apiBaseURL = 'https://api.walmartlabs.com/v1/';
+    private readonly apiURLTrends = `${this.apiBaseURL}trends?format=json&apiKey=${this.apiKey}`;
+    private readonly apiURLSearch = `${this.apiBaseURL}search?format=json&apiKey=${this.apiKey}`;
+
     constructor(
         private http: HttpClient
     ) {}
@@ -22,9 +24,13 @@ export class ApiService {
 
     getItemsByQuery(searchTerm: string) {
         return this.http
-            .get(this.apiURL)
+            .get( this.searchUrl(searchTerm) )
             .do( () => console.log('Api Service needs to impolement getItemsByQuery') )
             .pipe( catchError( this.handleError('getItemsByQuery', {}) ) );
+    }
+
+    private searchUrl(searchTerm: string) {
+        return this.apiURLSearch + `&query=${searchTerm}`;
     }
 
     //from Angular docs
