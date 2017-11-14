@@ -23,6 +23,14 @@ describe('filterItems helper function', () => {
                 photoURL: null,
                 categories: ['scents', 'decorations', 'home']
             },
+            '2gg': {
+                id: '2gg',
+                name: 'Grass',
+                price: 1.99,
+                rating: null,
+                photoURL: null,
+                categories: ['lawn', 'outdoors', 'home']
+            },
         };
         
         expect( filterItems(fakeItemsData, filterSettings) ).toEqual( filteredItems );

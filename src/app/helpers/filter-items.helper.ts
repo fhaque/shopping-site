@@ -30,9 +30,10 @@ export const filterItems = (items: IItemsRef, filterSettings: IFilterSettings): 
         let filteredKeys = Object.keys(filteredItems)
             .filter( key => {
                 if (filteredItems[key] !== null ) {
-                    is(filteredItems[key][filter.name])[filter.comperator](filter.value);
+                    return is(filteredItems[key][filter.name])[filter.comperator](filter.value);
+                } else {
+                    return false; //filter out if no value for the property
                 }
-                return true; //don't filter if no value in item property.
             });
 
         //craete a new filteredItems with the new filtered keys

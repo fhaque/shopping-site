@@ -8,10 +8,8 @@ import { fakeItemsData } from '../../api/fake-items-data';
 export const itemList = (state: IItemList=INITIAL_STATE.itemList, action: AnyAction): IItemList => {
     switch(action.type) {
         case ItemsActions.GET_DEFAULT_ITEMS:
-            console.log('GET_DEFAULT_ITEMS needs to be implemented');
-            return {...state, gettingData: true }; //TODO: implement
+            return {...state, gettingData: true };
         case ItemsActions.GET_ITEMS_BY_QUERY:
-            console.log('GET_ITEMS_BY_QUERY needs to be implemented');
             return {...state, gettingData: true };  //TODO: implement
         case ItemsActions.RECIEVED_DEFAULT_ITEMS:
             return {
