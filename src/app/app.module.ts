@@ -85,7 +85,10 @@ export class AppModule {
     ngRedux: NgRedux<IAppState>,
     getItemsEpic: GetItemsEpic,
    ) {
-    const epics = combineEpics(getItemsEpic.getDefaultItems);
+    const epics = combineEpics(
+      getItemsEpic.getDefaultItems,
+      getItemsEpic.getItemsByQuery,
+    );
     
     ngRedux.configureStore(rootReducer, INITIAL_STATE, [logger, createEpicMiddleware(epics)] );
     // ngRedux.provideStore(store);

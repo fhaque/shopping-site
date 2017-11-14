@@ -17,4 +17,9 @@ export class AppService {
             .getAllItems()
             .map( this.transformService.toItems );
     }
+
+    getItemsByQuery(searchTerm: string): Observable<IItemsRef> {
+        return this.apiService.getItemsByQuery(searchTerm)
+            .map( this.transformService.toItems );
+    }
 }

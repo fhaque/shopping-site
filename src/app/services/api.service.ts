@@ -18,6 +18,13 @@ export class ApiService {
             .pipe( catchError( this.handleError('getAllItems', {}) ) );
     }
 
+    getItemsByQuery(searchTerm: string) {
+        return this.http
+            .get(this.apiURL)
+            .do( () => console.log('Api Service needs to impolement getItemsByQuery') )
+            .pipe( catchError( this.handleError('getItemsByQuery', {}) ) );
+    }
+
     //from Angular docs
     private handleError<T> (operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {

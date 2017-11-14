@@ -6,7 +6,8 @@ import {
 }                     from 'rxjs/operators';
 
 import { IAppState }            from '../../models/app.model';
-import { SearchHistoryActions } from '../../actions/search-history.actions';
+import { ItemsActions } from '../../actions/items.actions';
+// import { SearchHistoryActions } from '../../actions/search-history.actions';
 
 @Component({
   selector: 'search-bar',
@@ -20,7 +21,8 @@ export class SearchBarComponent {
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
-    private searchHistoryActions: SearchHistoryActions
+    private itemsActions: ItemsActions,
+    // private searchHistoryActions: SearchHistoryActions
   ) { 
     this.searchTerm$ = new Subject<string>();
     this.searchTerm$.pipe(debounceTime(300), distinctUntilChanged());
@@ -32,7 +34,8 @@ export class SearchBarComponent {
 
   handleSubmit(searchTerm: string) {
     console.log('from submit', searchTerm);
-    this.ngRedux.dispatch( this.searchHistoryActions.addSearchTerm(searchTerm, Date.now()) );
+    this.ngRedux.dispatch( this.itemsActions.getItemsByQuery(searchTerm) );
+    // this.ngRedux.dispatch( this.searchHistoryActions.addSearchTerm(searchTerm, Date.now()) );
     //TODO: add search submit functionality
   }
 }
