@@ -40,6 +40,7 @@ import { AppService }               from './services/app.service';
 import { TransformDataHelper }      from './services/transform-data.helper';
 import { GetItemsEpic } from './epics/get-items.epic';
 import { combineEpics, createEpicMiddleware } from 'redux-observable';
+import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 
 
 
@@ -56,6 +57,7 @@ import { combineEpics, createEpicMiddleware } from 'redux-observable';
     WelcomeInfoComponent,
     SearchHistoryComponent,
     SearchHistoryListComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,

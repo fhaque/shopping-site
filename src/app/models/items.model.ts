@@ -7,6 +7,7 @@ export interface IItem {
     rating: number,
     photoURL: string,
     categories: string[],
+    description: string,
 }
 
 export interface IItemsRef {

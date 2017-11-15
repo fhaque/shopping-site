@@ -1,4 +1,4 @@
-<button>
+<button (click)="$event.preventDefault(); onClick()">
   <div>
     <p>Cart</p>
     <p># of Items: {{numOfItems$ | async}}</p>

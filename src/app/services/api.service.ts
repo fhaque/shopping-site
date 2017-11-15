@@ -16,10 +16,16 @@ export class ApiService {
         private http: HttpClient
     ) {}
 
-    getAllItems() {
+    getItem(id: string) {
+        return this.http
+            .get(this.itemUrl(id))
+            .pipe( catchError( this.handleError('getItem', {}) ) );
+    }
+
+    getTrendingItems() {
         return this.http
             .get(this.apiURLTrends)
-            .pipe( catchError( this.handleError('getAllItems', {}) ) );
+            .pipe( catchError( this.handleError('getTrendingItems', {}) ) );
     }
 
     getItemsByQuery(searchTerm: string) {
@@ -27,6 +33,10 @@ export class ApiService {
             .get( this.searchUrl(searchTerm) )
             .do( () => console.log('Api Service needs to impolement getItemsByQuery') )
             .pipe( catchError( this.handleError('getItemsByQuery', {}) ) );
+    }
+
+    private itemUrl(id: string) {
+        return this.apiBaseURL + `items/${id}?format=json&apiKey=${this.apiKey}`;
     }
 
     private searchUrl(searchTerm: string) {

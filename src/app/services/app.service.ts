@@ -12,9 +12,9 @@ export class AppService {
         private transformService: TransformDataHelper
     ) {}
 
-    getAllItems(): Observable<IItemsRef> {
+    getTrendingItems(): Observable<IItemsRef> {
         return this.apiService
-            .getAllItems()
+            .getTrendingItems()
             .map( this.transformService.toItems );
     }
 
@@ -22,5 +22,11 @@ export class AppService {
         return this.apiService
             .getItemsByQuery(searchTerm)
             .map( this.transformService.toItems );
+    }
+
+    getItem(id: string) {
+        return this.apiService
+            .getItem(id)
+            .map( this.transformService.toItem );
     }
 }

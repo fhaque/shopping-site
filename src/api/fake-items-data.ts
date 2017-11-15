@@ -7,7 +7,8 @@ export const fakeItemsData: IItemsRef = {
         price: 99.99,
         rating: 2,
         photoURL: null,
-        categories: ['furniture', 'decor', 'home']
+        categories: ['furniture', 'decor', 'home'],
+        description: '',
     },
     '8ch': {
         id: '8ch',
@@ -15,7 +16,8 @@ export const fakeItemsData: IItemsRef = {
         price: 10.99,
         rating: 3,
         photoURL: null,
-        categories: ['appliance', 'electronics']
+        categories: ['appliance', 'electronics'],
+        description: '',
     },
     '6cb': {
         id: '6cb',
@@ -23,7 +25,8 @@ export const fakeItemsData: IItemsRef = {
         price: 0.99,
         rating: 5,
         photoURL: null,
-        categories: ['scents', 'decorations', 'home']
+        categories: ['scents', 'decorations', 'home'],
+        description: '',
     },
     '2gg': {
         id: '2gg',
@@ -31,6 +34,7 @@ export const fakeItemsData: IItemsRef = {
         price: 1.99,
         rating: null,
         photoURL: null,
-        categories: ['lawn', 'outdoors', 'home']
+        categories: ['lawn', 'outdoors', 'home'],
+        description: '',
     },
 }

@@ -26,7 +26,7 @@ export class GetItemsEpic {
     getDefaultItems = (action$): Observable<AnyAction> => {
         return action$.ofType(ItemsActions.GET_DEFAULT_ITEMS)
             .do( (action: AnyAction) => console.log('Epic sees action: ', action.type) )
-            .mergeMap( () => this.appService.getAllItems() )
+            .mergeMap( () => this.appService.getTrendingItems() )
             .map((items:IItemsRef) => this.itemsActions.recievedDefaultItems(items, Date.now()) );
     }
 

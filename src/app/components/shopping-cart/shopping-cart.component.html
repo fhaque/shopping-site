@@ -1,0 +1,6 @@
+<ul>
+  <li *ngFor="let item of shoppingCart$ | async">
+    <item [item]="item[0]"></item>
+    <p>Count: {{item[1]}}</p>
+  </li>
+</ul>
