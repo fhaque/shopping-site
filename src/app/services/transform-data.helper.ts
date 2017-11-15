@@ -20,7 +20,7 @@ export class TransformDataHelper implements ITransformDataHelper {
     toItems(x: any): IItemsRef {
         let items:IItemsRef = {};
 
-        x.items.map( (item:IResponseItem) => {
+        x.items && x.items.map( (item:IResponseItem) => {
             items[item.itemId.toString()] = <IItem> {
                 id: item.itemId.toString() || Date.now().toString(),
                 name: item.name || 'Item',

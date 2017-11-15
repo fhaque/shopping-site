@@ -10,7 +10,7 @@ export const itemList = (state: IItemList=INITIAL_STATE.itemList, action: AnyAct
         case ItemsActions.GET_DEFAULT_ITEMS:
             return {...state, gettingData: true };
         case ItemsActions.GET_ITEMS_BY_QUERY:
-            return {...state, gettingData: true };  //TODO: implement
+            return {...state, items: {}, gettingData: true };  //TODO: implement
         case ItemsActions.RECIEVED_DEFAULT_ITEMS:
             return {
                 ...state, 
