@@ -1,5 +1,7 @@
 <ul>
   <li *ngFor="let entry of searchHistory | async">
-    {{entry.searchTerm}} <span>({{entry.date | date}})</span>
+    <a href="" [routerLink]="['/search']" [queryParams]="{query:entry.searchTerm}">
+      {{entry.searchTerm}} <span>({{entry.date | date}})</span>
+    </a>
   </li>
 </ul>

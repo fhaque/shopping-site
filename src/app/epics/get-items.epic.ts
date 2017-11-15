@@ -31,17 +31,6 @@ export class GetItemsEpic {
     }
 
     getItemsByQuery = (action$): Observable<AnyAction> => {
-        // const query$: Observable<string> = action$.ofType(ItemsActions.GET_ITEMS_BY_QUERY)
-        //     .map( (action: AnyAction) => action.query );
-
-        // const items$: Observable<IItemsRef> = query$
-        //     .mergeMap( (query:string) => this.appService.getItemsByQuery(query) );
-
-        // const recievedItemsByQueryAction$: Observable<AnyAction> = items$
-        //     .map( (items: IItemsRef) => this.itemsActions.recievedItemsByQuery(items, Date.now()) );
-
-        
-        
         const queryAndItems$: Observable<[string, IItemsRef]> = action$
             .ofType(ItemsActions.GET_ITEMS_BY_QUERY)
             .map( (action: AnyAction) => action.query )
