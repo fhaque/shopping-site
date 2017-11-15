@@ -16,4 +16,11 @@ describe('Shopping Cart Actions', () => {
 
         expect( shoppingCartActions.removeItem(id) ).toEqual( expectedAction );
     });
+    it('should give a SET_ITEM_COUNT_IN_CART action', () => {
+        const id = '2a';
+        const count = 10;
+        const expectedAction: AnyAction = { type: ShoppingCartActions.SET_ITEM_COUNT_IN_CART, id, count };
+
+        expect( shoppingCartActions.setItemCount(id, count) ).toEqual( expectedAction );
+    });
 });

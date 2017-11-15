@@ -31,4 +31,22 @@ describe('Shopping Cart Reducer', () => {
 
         expect( shoppingCart(this.beforeState, action) ).toEqual( afterState );
     });
+
+    it('should set item count with SET_ITEM_COUNT_IN_CART action', () => {
+        const id = '56a';
+        const count = 33;
+        const action = shoppingCartActions.setItemCount(id, count);
+        const afterState = {'56a': 33};
+
+        expect( shoppingCart(this.beforeState, action) ).toEqual( afterState );
+    });
+
+    it('should remove item if count is zero with SET_ITEM_COUNT_IN_CART action', () => {
+        const id = '56a';
+        const count = 0;
+        const action = shoppingCartActions.setItemCount(id, count);
+        const afterState = {};
+
+        expect( shoppingCart(this.beforeState, action) ).toEqual( afterState );
+    });
 });

@@ -11,7 +11,7 @@ import { IItem, IItemCount } from '../../models/items.model';
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
-  private shoppingCart$: Observable<Array<[IItem, number]>>
+  private shoppingCart$: Observable<{item:IItem, count:number}[]>
 
   constructor(
     private appService: AppService,
@@ -29,7 +29,7 @@ export class ShoppingCartComponent implements OnInit {
                 // 2. Get data of each item
                 .getItem(id)
                 // 3. Create array of item with its shopping cart count
-                .map( (item: IItem) => <[IItem, number]>[item, cart[id]] ) 
+                .map( (item: IItem) => <{item:IItem, count:number}>{item:item, count:cart[id]} ) 
             )
           )
       );
