@@ -4,10 +4,10 @@ import { AnyAction, Store, Action } from "redux";
 import { ofType } from 'redux-observable';
 
 import { Observable } from "rxjs/Observable";
-import 'rxjs/add/observable/zip';
 import 'rxjs/add/observable/merge';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
 
 import { ItemsActions } from "../actions/items.actions";
 import { AppService } from "../services/app.service";
@@ -31,19 +31,33 @@ export class GetItemsEpic {
     }
 
     getItemsByQuery = (action$): Observable<AnyAction> => {
-        const query$: Observable<string> = action$.ofType(ItemsActions.GET_ITEMS_BY_QUERY)
-            .map( (action: AnyAction) => action.query );
+        // const query$: Observable<string> = action$.ofType(ItemsActions.GET_ITEMS_BY_QUERY)
+        //     .map( (action: AnyAction) => action.query );
 
-        const items$: Observable<IItemsRef> = query$
-            .mergeMap( (query:string) => this.appService.getItemsByQuery(query) );
+        // const items$: Observable<IItemsRef> = query$
+        //     .mergeMap( (query:string) => this.appService.getItemsByQuery(query) );
 
-        const recievedItemsByQueryAction$: Observable<AnyAction> = items$
-            .map( (items: IItemsRef) => this.itemsActions.recievedItemsByQuery(items, Date.now()) );
+        // const recievedItemsByQueryAction$: Observable<AnyAction> = items$
+        //     .map( (items: IItemsRef) => this.itemsActions.recievedItemsByQuery(items, Date.now()) );
 
+        
+        
+        const queryAndItems$: Observable<[string, IItemsRef]> = action$
+            .ofType(ItemsActions.GET_ITEMS_BY_QUERY)
+            .map( (action: AnyAction) => action.query )
+            .switchMap( (query: string) => 
+                this.appService.getItemsByQuery(query).map( (items: IItemsRef) => [query, items] ) 
+            );
+    
+        const recievedItemsByQueryAction$: Observable<AnyAction> = queryAndItems$
+            .map( (queryAndItems:[string, IItemsRef]) => 
+                this.itemsActions.recievedItemsByQuery(queryAndItems[1], Date.now())
+            );
+    
         // Save Search History term after the appService retrieved data.
-        const searchHistoryAction$: Observable<AnyAction> = Observable
-            .zip(query$, items$, (query: string, items:IItemsRef) =>
-                this.searchHistoryActions.addSearchTerm(query, Date.now())
+        const searchHistoryAction$: Observable<AnyAction> = queryAndItems$
+            .map( (queryAndItems:[string, IItemsRef]) => 
+                this.searchHistoryActions.addSearchTerm(queryAndItems[0], Date.now())
             );
 
         return Observable.merge(recievedItemsByQueryAction$, searchHistoryAction$);
