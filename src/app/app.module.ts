@@ -57,7 +57,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     WelcomeInfoComponent,
     SearchHistoryComponent,
     SearchHistoryListComponent,
-    ShoppingCartComponent
+    ShoppingCartComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,5 +1,8 @@
 <ul>
   <li *ngFor="let item of (items$ | async)">
-    <item [item]="item"></item>
+    <div>
+      <item [item]="item"></item>
+      <button (click)="addToCart(item.id)">Add to Cart</button>
+    </div>
   </li>
 </ul>

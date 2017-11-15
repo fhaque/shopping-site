@@ -14,6 +14,7 @@ import { DisplayItemsActions } from '../../actions/display-items.actions';
 
 import { filterItems } from '../../helpers/filter-items.helper';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
+import { ShoppingCartActions } from '../../actions/shopping-cart.actions';
 
 
 @Component({
@@ -27,7 +28,8 @@ export class DisplayItemsComponent implements OnInit {
 
   constructor(
     private ngRedux:              NgRedux<IAppState>,
-    private displayItemsactions:  DisplayItemsActions
+    private displayItemsactions:  DisplayItemsActions,
+    private shoppingCartActions:  ShoppingCartActions
   ) {
       // const itemsObservable: Observable<IItemsRef> = ngRedux.select<IItemsRef>(['itemList', 'items']);
       // this.filters$ = ngRedux.select<IFilterSettings>('filters');
@@ -52,5 +54,9 @@ export class DisplayItemsComponent implements OnInit {
       .combineLatest(itemsObservable, this.filters$)
       .map( (combined: [IItemsRef, IFilterSettings])  => filterItems(combined[0], combined[1]) )
       .map( items => Object.keys(items).map( key => items[key] ) );
+  }
+
+  addToCart(id: id) {
+    this.ngRedux.dispatch( this.shoppingCartActions.addItem(id) );
   }
 }
