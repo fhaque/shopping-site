@@ -4,6 +4,7 @@ import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import logger                     from 'redux-logger';
 import { RouterModule }           from '@angular/router';
 import { HttpClientModule }       from '@angular/common/http';
+import { FormsModule }            from '@angular/forms';
 
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -38,9 +39,10 @@ import { appRoutes }  from './app.routes';
 import { ApiService }               from './services/api.service';
 import { AppService }               from './services/app.service';
 import { TransformDataHelper }      from './services/transform-data.helper';
-import { GetItemsEpic } from './epics/get-items.epic';
-import { combineEpics, createEpicMiddleware } from 'redux-observable';
-import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
+import { GetItemsEpic }             from './epics/get-items.epic';
+import {  combineEpics, 
+          createEpicMiddleware }    from 'redux-observable';
+import { ShoppingCartComponent }    from './components/shopping-cart/shopping-cart.component';
 
 
 
@@ -64,6 +66,7 @@ import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.
     NgReduxModule,
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
+    FormsModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),

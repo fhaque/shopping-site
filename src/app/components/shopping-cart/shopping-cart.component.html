@@ -1,6 +1,18 @@
 <ul>
-  <li *ngFor="let item of shoppingCart$ | async">
-    <item [item]="item.item"></item>
-    <p>Count: {{item.count}}</p>
+  <li *ngFor="let cartItem of shoppingCart$ | async">
+    <div>
+      <div [className]="itemCount[cartItem.item.id] === 0 ? 'itemCrossed' : ''">
+        <item [item]="cartItem.item"></item>
+      </div>
+      <button (click)="removeItem(cartItem.item.id)">Remove Item</button>
+      <label>
+        <span>Count:</span>
+        <!-- <input type="text" [ngModel]="itemQuantity" (ngModelChange)="handleKeyUp({id: cartItem.item.id, count:$event})"> -->
+      </label>
+      <p>Count: {{cartItem.count}}</p>
+    </div>
   </li>
 </ul>
+<input type="text" value="{{cartItem.count}}" (keyup)="handleKeyUp({id:1, count: $event.target.value})">
+<p>{{itemQuantity}}</p>
+<button (click)="saveCart()">Save Cart</button>
