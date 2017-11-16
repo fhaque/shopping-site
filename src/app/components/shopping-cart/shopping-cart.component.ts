@@ -48,18 +48,20 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   handleKeyUp({id, count}) {
-    console.log(this.itemCount, id, count);
     if ( !isNaN(count) ) {
-      this.itemCount[id] = parseInt(count);
+      this.itemCount[id] = parseInt(count) || 0;
     }
+  }
 
-    // console.log(this.itemCount);
+  // from: https://stackoverflow.com/questions/37435529/angular2-proper-way-to-restrict-text-input-values-e-g-only-numbers
+  onKeyPress(event: any) {
+    const pattern = /[0-9]+/;
+    let inputChar = String.fromCharCode(event.charCode);
 
-    // // setTimeout(() => {
-    //   this.itemQuantity = parseInt(count) || 0;
-    //   console.log(this.itemQuantity);
-    // // }, 1000);
-
+    if (!pattern.test(inputChar)) {
+      // invalid character, prevent input
+      event.preventDefault();
+    }
   }
 
   removeItem(id: string) {

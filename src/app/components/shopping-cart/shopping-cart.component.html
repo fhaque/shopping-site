@@ -5,14 +5,19 @@
         <item [item]="cartItem.item"></item>
       </div>
       <button (click)="removeItem(cartItem.item.id)">Remove Item</button>
-      <label>
-        <span>Count:</span>
-        <!-- <input type="text" [ngModel]="itemQuantity" (ngModelChange)="handleKeyUp({id: cartItem.item.id, count:$event})"> -->
-      </label>
+        <label>
+          <span>Quantity:</span>
+          <input 
+            type="text" 
+            name="{{'quantity-' + cartItem.item.id}}"  
+            value="{{cartItem.count}}" 
+            (keyup)="handleKeyUp({id: cartItem.item.id, count:$event.target.value})"
+            (keypress)="onKeyPress($event)">
+        </label>
       <p>Count: {{cartItem.count}}</p>
     </div>
   </li>
 </ul>
-<input type="text" value="{{cartItem.count}}" (keyup)="handleKeyUp({id:1, count: $event.target.value})">
+<!-- <input type="text" value="{{itemQuantity}}" (keyup)="handleKeyUp({id:1, count: $event.target.value})"> -->
 <p>{{itemQuantity}}</p>
 <button (click)="saveCart()">Save Cart</button>
