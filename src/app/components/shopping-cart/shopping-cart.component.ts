@@ -18,6 +18,17 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   private itemCountSubscription: any;
   // itemQuantity: any = 0;
 
+
+  //Experimenting
+  // private _currentCount = {};
+  // set currentCount(val : any){
+  //   this._currentCount = isNaN(val) ? {...this._currentCount, val: val.replace(/\D/g,'') } : {...this.currentCount, val};
+  // }
+
+  // get currentCount() {
+  //   return this._currentCount || {val: '0'};
+  // }
+
   constructor(
     private appService: AppService,
     private ngRedux: NgRedux<IAppState>,
@@ -48,9 +59,7 @@ export class ShoppingCartComponent implements OnInit, OnDestroy {
   }
 
   handleKeyUp({id, count}) {
-    if ( !isNaN(count) ) {
       this.itemCount[id] = parseInt(count) || 0;
-    }
   }
 
   // from: https://stackoverflow.com/questions/37435529/angular2-proper-way-to-restrict-text-input-values-e-g-only-numbers

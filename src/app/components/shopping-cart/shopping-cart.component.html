@@ -7,14 +7,15 @@
       <button (click)="removeItem(cartItem.item.id)">Remove Item</button>
         <label>
           <span>Quantity:</span>
-          <input 
+          <input type="number" (keyup)="handleKeyUp({id: cartItem.item.id, count: $event.target.value})">
+          <p>Count: {{itemCount | json}}</p>
+          <!-- <input 
             type="text" 
             name="{{'quantity-' + cartItem.item.id}}"  
-            value="{{cartItem.count}}" 
-            (keyup)="handleKeyUp({id: cartItem.item.id, count:$event.target.value})"
-            (keypress)="onKeyPress($event)">
+            [(ngModel)]="currentCount.val"
+            > -->
         </label>
-      <p>Count: {{cartItem.count}}</p>
+        <!-- <h2>{{currentCount.val}}</h2> -->
     </div>
   </li>
 </ul>
