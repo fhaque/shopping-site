@@ -1,25 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FilterComponent } from './filter.component';
+import { NgRedux } from '@angular-redux/store';
+import { IAppState } from '../../models/app.model';
+import { FilterActions } from '../../actions/filter.actions';
 
-describe('FilterComponent', () => {
+class MockRedux {
+  dispatch = () => {};
+  select = () => {}; 
+}
+
+class MockFilterActions {
+  setFilter = () => {};
+  clearFilters = () => ({type: ''});
+}
+
+
+describe('FilterComponent class', () => {
   let component: FilterComponent;
-  let fixture: ComponentFixture<FilterComponent>;
+  let mockRedux: MockRedux;
+  let mockFilterActions: MockFilterActions;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ FilterComponent ]
-    })
-    .compileComponents();
-  }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(FilterComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach( () => {
+    mockRedux = new MockRedux;
+    mockFilterActions = new MockFilterActions;
+
+    component = new FilterComponent(mockRedux as any, mockFilterActions as any);
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('dispatches a Clear Filer action', () => {
+    spyOn(mockRedux, 'dispatch');
+    spyOn(mockFilterActions, 'clearFilters');
+    component.clearFilters();
+    expect( mockFilterActions.clearFilters ).toHaveBeenCalled();
+    expect( mockRedux.dispatch ).toHaveBeenCalled();
   });
+
+
+
 });

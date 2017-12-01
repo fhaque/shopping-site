@@ -1,25 +1,40 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { DisplayItemsComponent } from './display-items.component';
+import { id } from '../../models/items.model';
+
+class MockRedux {
+  dispatch = () => {};
+  select = () => {}; 
+}
+
+class MockShoppingCartActions {
+  addItem = (id: id) => ( {id} );
+}
 
 describe('DisplayItemsComponent', () => {
   let component: DisplayItemsComponent;
-  let fixture: ComponentFixture<DisplayItemsComponent>;
-
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ DisplayItemsComponent ]
-    })
-    .compileComponents();
-  }));
+  let mockRedux: MockRedux;
+  let mockShoppingCartActions:  MockShoppingCartActions;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DisplayItemsComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+    mockRedux = new MockRedux;
+    mockShoppingCartActions = new MockShoppingCartActions;
+  
+    component = new DisplayItemsComponent(
+      mockRedux as any, 
+      mockShoppingCartActions as any
+    );
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
+  it('should dispatch for add item to cart', () => {
+    const id: id = "cheese";
+
+    spyOn(mockShoppingCartActions, 'addItem');
+    spyOn(mockRedux, 'dispatch');
+
+    component.addToCart(id);
+    expect( mockShoppingCartActions.addItem ).toHaveBeenCalledWith(id);
+    expect( mockRedux.dispatch )
+      .toHaveBeenCalledWith( mockShoppingCartActions.addItem(id) );
   });
+
 });

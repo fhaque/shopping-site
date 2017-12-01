@@ -10,8 +10,6 @@ import { IItemList, IItemsRef, IItem } from '../../models/items.model';
 import { IFilterSettings } from '../../models/filters.model';
 import { id } from '../../models/items.model';
 
-import { DisplayItemsActions } from '../../actions/display-items.actions';
-
 import { filterItems } from '../../helpers/filter-items.helper';
 import { OnInit } from '@angular/core/src/metadata/lifecycle_hooks';
 import { ShoppingCartActions } from '../../actions/shopping-cart.actions';
@@ -28,7 +26,6 @@ export class DisplayItemsComponent implements OnInit {
 
   constructor(
     private ngRedux:              NgRedux<IAppState>,
-    private displayItemsactions:  DisplayItemsActions,
     private shoppingCartActions:  ShoppingCartActions
   ) {
       // const itemsObservable: Observable<IItemsRef> = ngRedux.select<IItemsRef>(['itemList', 'items']);

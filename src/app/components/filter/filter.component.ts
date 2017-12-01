@@ -19,18 +19,20 @@ import { FilterActions } from '../../actions/filter.actions';
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.css']
 })
-export class FilterComponent {
-  readonly filters$: Observable<IFilterSettings>;
-  readonly categories$: Observable<Set<string>>;
-  readonly selectedCategory$: Observable<string>;
-  readonly minRating$: Observable<number>;
+export class FilterComponent implements OnInit {
+  filters$: Observable<IFilterSettings>;
+  categories$: Observable<Set<string>>;
+  selectedCategory$: Observable<string>;
+  minRating$: Observable<number>;
 
   constructor(
     private ngRedux: NgRedux<IAppState>,
     private filterActions: FilterActions,
-  ) { 
-    const itemsObservable: Observable<IItemsRef> = ngRedux.select<IItemsRef>(['itemList', 'items']);
-    this.filters$ = ngRedux.select<IFilterSettings>('filters').distinctUntilChanged();
+  ) { }
+
+  ngOnInit() {
+    const itemsObservable: Observable<IItemsRef> = this.ngRedux.select<IItemsRef>(['itemList', 'items']);
+    this.filters$ = this.ngRedux.select<IFilterSettings>('filters').distinctUntilChanged();
     
     //use the stream from items to derive the categories for filtering.
     this.categories$ = itemsObservable.map( items => {
@@ -42,6 +44,7 @@ export class FilterComponent {
     
     this.selectedCategory$ = this.filters$.map( filters => (filters.hasOwnProperty('categories')) ? filters.categories.value : null );
     this.minRating$ = this.filters$.map(filters => (filters.hasOwnProperty('rating')) ? filters.rating.value : 1 );
+
   }
 
   applyRatingFilter(minRating: number): void {

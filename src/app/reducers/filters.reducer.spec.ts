@@ -16,18 +16,19 @@ describe('Filters reducer', () => {
 
         expect( filters(this.beforeState, action) ).toEqual( afterState );
     });
-    it('should clear all filters with ADD_FILTER_SETTING action', () => {
+    it('should add a filter with ADD_FILTER_SETTING action', () => {
         const filter = { name: 'price', comperator: 'greaterThan', value: 3 };
         const action = { type: FilterActions.SET_FILTER_SETTING, filter };
         const afterState = {...this.beforeState, [filter.name]: filter };
 
         expect( filters(this.beforeState, action) ).toEqual( afterState );
     });
-    it('should clear all filters with REMOVE_FILTER_SETTING action', () => {
+    it('should remove a filter with a given name using REMOVE_FILTER_SETTING action', () => {
         const name = 'categories';
         const action = { type: FilterActions.REMOVE_FILTER_SETTING, name };
         const afterState = {'rating': { name: 'rating', comperator: 'greaterThan', value: 2 } };
 
         expect( filters(this.beforeState, action) ).toEqual( afterState );
     });
+    
 });
