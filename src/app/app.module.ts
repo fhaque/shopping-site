@@ -43,6 +43,8 @@ import { GetItemsEpic }             from './epics/get-items.epic';
 import {  combineEpics, 
           createEpicMiddleware }    from 'redux-observable';
 import { ShoppingCartComponent }    from './components/shopping-cart/shopping-cart.component';
+import { LoginService } from './services/login.service';
+import { LoginRouteGuard } from './services/login-route.guard';
 
 
 
@@ -81,8 +83,11 @@ import { ShoppingCartComponent }    from './components/shopping-cart/shopping-ca
     ApiService,
     AppService,
     TransformDataHelper,
+    LoginService,
 
     GetItemsEpic,
+
+    LoginRouteGuard,
   ],
   bootstrap: [AppComponent]
 })
