@@ -45,6 +45,7 @@ import {  combineEpics,
 import { ShoppingCartComponent }    from './components/shopping-cart/shopping-cart.component';
 import { LoginService } from './services/login.service';
 import { LoginRouteGuard } from './services/login-route.guard';
+import { DealsPageComponent } from './components/deals-page/deals-page.component';
 
 
 
@@ -62,6 +63,7 @@ import { LoginRouteGuard } from './services/login-route.guard';
     SearchHistoryComponent,
     SearchHistoryListComponent,
     ShoppingCartComponent,
+    DealsPageComponent,
   ],
   imports: [
     BrowserModule,
