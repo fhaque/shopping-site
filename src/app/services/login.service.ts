@@ -1,22 +1,36 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/throw';
+import 'rxjs/add/observable/of';
+
+import { IUser } from '../models/user.model';
+
+interface ITokenObj {
+    username: string,
+    expiredAt: number,
+}
 
 @Injectable()
 export class LoginService {
     private token: string = null;
 
-    login(user: string, pass: string): Observable<boolean> {
-        if (user === "cheese" && pass === "cheese") {
-            this.token = JSON.stringify({ 
+    login(username: string, pass: string): Observable<IUser> {
+        if (username === "cheese" && pass === "cheese") {
+            const tokenObj: ITokenObj = { 
                 username: "cheese", 
                 expiredAt: 10 * Date.now()  
-            });
+            };
+            this.token = JSON.stringify(tokenObj);
 
             //TODO: Add local storage
 
-            return Observable.of( true );
+            const user: IUser = {
+                name: username,
+            }
+
+            return Observable.of( user );
         }
-        return Observable.of( false );
+        return Observable.throw( new Error('User Login Fail') );
     }
 
     logout() {

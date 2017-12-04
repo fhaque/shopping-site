@@ -21,6 +21,7 @@ import { ItemsActions }         from './actions/items.actions';
 import { ShoppingCartActions }  from './actions/shopping-cart.actions';
 import { FilterActions }        from './actions/filter.actions';
 import { SearchHistoryActions } from './actions/search-history.actions';
+// import { UserActions }          from './actions/user.actions';
 
 // import { store }                    from './store/store';
 import { rootReducer } from './reducers/root-reducer.reducer';
@@ -50,6 +51,7 @@ import { LoginService } from './services/login.service';
 import { LoginRouteGuard } from './services/login-route.guard';
 import { DealsPageComponent } from './components/deals-page/deals-page.component';
 import { LoginPageComponent } from './components/login-page/login-page.component';
+
 
 
 
@@ -87,6 +89,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
     ShoppingCartActions,
     FilterActions,
     SearchHistoryActions,
+    // UserActions,
     
     ApiService,
     AppService,
