@@ -6,6 +6,7 @@ import { SearchHistoryComponent } from './components/search-history/search-histo
 import { ShoppingCartComponent } from './components/shopping-cart/shopping-cart.component';
 import { DealsPageComponent } from './components/deals-page/deals-page.component';
 import { LoginRouteGuard } from './services/login-route.guard';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 
 export const appRoutes: Routes = [
     {
@@ -26,8 +27,16 @@ export const appRoutes: Routes = [
         component: ShoppingCartComponent,
     },
     {
+        path: 'login',
+        component: LoginPageComponent,
+    },
+    {
         path: 'deals',
         component: DealsPageComponent,
         canActivate: [ LoginRouteGuard ],
-    }
+    },
+    {
+        path: '**',
+        redirectTo: '',
+    },
 ];

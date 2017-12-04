@@ -4,7 +4,10 @@ import { NgReduxModule, NgRedux } from '@angular-redux/store';
 import logger                     from 'redux-logger';
 import { RouterModule }           from '@angular/router';
 import { HttpClientModule }       from '@angular/common/http';
-import { FormsModule }            from '@angular/forms';
+import { 
+        FormsModule, 
+        ReactiveFormsModule 
+      }                           from '@angular/forms';
 
 
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
@@ -46,6 +49,7 @@ import { ShoppingCartComponent }    from './components/shopping-cart/shopping-ca
 import { LoginService } from './services/login.service';
 import { LoginRouteGuard } from './services/login-route.guard';
 import { DealsPageComponent } from './components/deals-page/deals-page.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 
 
 
@@ -64,6 +68,7 @@ import { DealsPageComponent } from './components/deals-page/deals-page.component
     SearchHistoryListComponent,
     ShoppingCartComponent,
     DealsPageComponent,
+    LoginPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -71,6 +76,7 @@ import { DealsPageComponent } from './components/deals-page/deals-page.component
     RouterModule.forRoot(appRoutes),
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     // HttpClientInMemoryWebApiModule.forRoot(
     //   InMemoryDataService, { dataEncapsulation: false }
     // ),

@@ -1,0 +1,20 @@
+<section>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+    <label>
+      User:
+      <input 
+        type="text"
+        formControlName="user">
+    </label>
+    <label>
+      Password:
+      <input 
+        type="password"
+        formControlName="pass">
+    </label>
+    <button type="submit">Login</button>
+    <button type="button" (click)="cancelLogin()">Cancel</button>
+  </form>
+  <pre>Form Values: {{ loginForm.value | json }}</pre>
+  <pre>Form Status: {{ loginForm.status | json }}</pre>
+</section>
