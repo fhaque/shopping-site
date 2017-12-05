@@ -115,4 +115,22 @@ describe('Current User State Reducer', () => {
          expect( currentUserState(undefined, action) ).toEqual( afterState );
 
     });
+    it('should reset user state with LOGOUT_USER action', () => {
+        const loggedInOn: number = Date.now();
+        const user: IUser = {
+            name: 'bob',
+        };
+
+        const beforeState: ICurrentUserState = {
+            ...INITIAL_STATE.currentUserState,
+            user,
+            loggedInOn,
+        };
+        const action: AnyAction = {
+            type: UserActions.LOGOUT_USER,
+         };
+        const afterState: ICurrentUserState = INITIAL_STATE.currentUserState;
+
+         expect( currentUserState(beforeState, action) ).toEqual( afterState );
+    });
 }); 

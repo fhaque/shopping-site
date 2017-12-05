@@ -7,6 +7,8 @@ export class UserActions {
     static readonly LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
     static readonly LOGIN_USER_FAIL = 'LOGIN_USER_FAIL';
 
+    static readonly LOGOUT_USER = 'LOGOUT_USER';
+
     loginStarted(username: string, pass: string): AnyAction {
         return { type: UserActions.LOGIN_USER_REQUEST, username, pass };
     }
@@ -17,5 +19,9 @@ export class UserActions {
 
     loginFailed(error: any): AnyAction {
         return { type: UserActions.LOGIN_USER_FAIL, error };
+    }
+
+    logout(): AnyAction {
+        return { type: UserActions.LOGOUT_USER };
     }
 }

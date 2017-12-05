@@ -43,4 +43,9 @@ describe('User Actions', () => {
 
         expect( this.userActions.loginFailed(error) ).toEqual( expectedAction );
     });
+    it('should give a LOGOUT_USER action', () => {
+        const expectedAction: AnyAction = { type: UserActions.LOGOUT_USER };
+
+        expect( this.userActions.logout() ).toEqual( expectedAction );
+    });
 });

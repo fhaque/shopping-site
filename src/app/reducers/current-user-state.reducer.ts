@@ -21,6 +21,8 @@ export const currentUserState = (
             };
         case UserActions.LOGIN_USER_FAIL:
             return initialState;
+        case UserActions.LOGOUT_USER:
+            return initialState;
         default:
             return state;
     }
