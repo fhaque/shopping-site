@@ -2,6 +2,9 @@ import { LoginService } from './login.service';
 import { setTimeout } from "timers";
 import { IUser } from '../models/user.model';
 
+
+// TODO: Needs to change since error handling has changed.
+
 describe('Login Service', () => {
     let loginService: LoginService;
 

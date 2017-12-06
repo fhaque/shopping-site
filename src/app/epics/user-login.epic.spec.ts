@@ -27,6 +27,8 @@ class MockLoginService {
     logout = () => {};
 };
 // TODO: Don't feel confident in the testing of Observables.
+// TODO: Needs to be updated since Login Service has changed its error handle.
+//      And because there is now a Router dependency
 class MockUserActions {
     loginSuccess = (user, date) => ({ type: 'MOCK_LOGIN_SUCESS', user, date });
     loginFailed = (err) => ({ type: 'MOCK_LOGIN_ERROR', err });

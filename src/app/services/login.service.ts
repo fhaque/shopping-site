@@ -32,7 +32,7 @@ export class LoginService {
             return Observable.of( user );
         }
         
-        return Observable.throw( new Error('User Login Fail') );
+        return Observable.of( new Error('User Login Fail') );
     }
 
     logout() {

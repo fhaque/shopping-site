@@ -29,15 +29,17 @@ export class UserLoginEpic {
     login = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(UserActions.LOGIN_USER_REQUEST)
             .switchMap( (action: AnyAction) =>
-                this.loginService.login(action.username, action.pass) 
+                this.loginService.login(action.username, action.pass)
             )
-            .map( (user: IUser) => 
-                this.userActions.loginSuccess(user, Date.now()) 
-            )
-            .do( () => this.router.navigate(['']) )
-            .catch((err: Error, caught) =>
-                Observable.of( this.userActions.loginFailed(err) )
-            )
+            .map( (val: IUser | Error) =>
+                (val instanceof Error) ?
+                this.userActions.loginFailed(val)
+                :
+                this.userActions.loginSuccess(val, Date.now()) 
+            );
+            // .catch((err: Error, caught) =>
+            //     Observable.of( this.userActions.loginFailed(err) )
+            // )
     };
 
     logout = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
@@ -47,4 +49,10 @@ export class UserLoginEpic {
                 return ActionsObservable.empty();
             });
     };
+
+    loginSuccess = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
+        return action$.ofType(UserActions.LOGIN_USER_SUCCESS)
+            .do( () => this.router.navigate(['']) )
+            .mergeMap( () => ActionsObservable.empty());
+    }
 }

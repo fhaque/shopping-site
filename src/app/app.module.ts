@@ -114,13 +114,14 @@ export class AppModule {
     ngRedux: NgRedux<IAppState>,
     getItemsEpic: GetItemsEpic,
     userLoginEpic: UserLoginEpic,
-    private devTools: DevToolsExtension
+    devTools: DevToolsExtension
    ) {
     const epics = combineEpics(
       getItemsEpic.getDefaultItems,
       getItemsEpic.getItemsByQuery,
       userLoginEpic.login,
-      userLoginEpic.logout
+      userLoginEpic.logout,
+      userLoginEpic.loginSuccess,
     );
     
     ngRedux.configureStore(
