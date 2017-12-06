@@ -6,4 +6,5 @@ export interface ICurrentUserState {
     user: IUser | null,
     isLoggingIn: boolean,
     loggedInOn: number | null,
+    loginError: string | null,
 }

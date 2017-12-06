@@ -21,7 +21,7 @@ import { ItemsActions }         from './actions/items.actions';
 import { ShoppingCartActions }  from './actions/shopping-cart.actions';
 import { FilterActions }        from './actions/filter.actions';
 import { SearchHistoryActions } from './actions/search-history.actions';
-// import { UserActions }          from './actions/user.actions';
+import { UserActions } from './actions/user.actions';
 
 // import { store }                    from './store/store';
 import { rootReducer } from './reducers/root-reducer.reducer';
@@ -37,6 +37,8 @@ import { SearchResultsComponent }   from './components/search-results/search-res
 import { WelcomeInfoComponent }     from './components/welcome-info/welcome-info.component';
 import { SearchHistoryComponent } from './components/search-history/search-history.component';
 import { SearchHistoryListComponent } from './components/search-history-list/search-history-list.component';
+import { DealsPageComponent } from './components/deals-page/deals-page.component';
+import { LoginPageComponent } from './components/login-page/login-page.component';
 
 import { appRoutes }  from './app.routes';
 
@@ -44,13 +46,15 @@ import { ApiService }               from './services/api.service';
 import { AppService }               from './services/app.service';
 import { TransformDataHelper }      from './services/transform-data.helper';
 import { GetItemsEpic }             from './epics/get-items.epic';
+import { UserLoginEpic } from './epics/user-login.epic';
 import {  combineEpics, 
           createEpicMiddleware }    from 'redux-observable';
 import { ShoppingCartComponent }    from './components/shopping-cart/shopping-cart.component';
+
 import { LoginService } from './services/login.service';
 import { LoginRouteGuard } from './services/login-route.guard';
-import { DealsPageComponent } from './components/deals-page/deals-page.component';
-import { LoginPageComponent } from './components/login-page/login-page.component';
+
+
 
 
 
@@ -89,7 +93,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
     ShoppingCartActions,
     FilterActions,
     SearchHistoryActions,
-    // UserActions,
+    UserActions,
     
     ApiService,
     AppService,
@@ -97,6 +101,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
     LoginService,
 
     GetItemsEpic,
+    UserLoginEpic,
 
     LoginRouteGuard,
   ],
@@ -107,10 +112,13 @@ export class AppModule {
   constructor( 
     ngRedux: NgRedux<IAppState>,
     getItemsEpic: GetItemsEpic,
+    userLoginEpic: UserLoginEpic
    ) {
     const epics = combineEpics(
       getItemsEpic.getDefaultItems,
       getItemsEpic.getItemsByQuery,
+      userLoginEpic.login,
+      userLoginEpic.logout
     );
     
     ngRedux.configureStore(rootReducer, INITIAL_STATE, [logger, createEpicMiddleware(epics)] );

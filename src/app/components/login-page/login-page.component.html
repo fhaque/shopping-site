@@ -14,6 +14,9 @@
     </label>
     <button type="submit">Login</button>
     <button type="button" (click)="cancelLogin()">Cancel</button>
+    <div *ngIf="loginError$ | async as loginError">
+      Login Error: {{ loginError }}
+    </div>
   </form>
   <pre>Form Values: {{ loginForm.value | json }}</pre>
   <pre>Form Status: {{ loginForm.status | json }}</pre>

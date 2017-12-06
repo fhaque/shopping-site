@@ -110,7 +110,10 @@ describe('Current User State Reducer', () => {
             type: UserActions.LOGIN_USER_FAIL,
             error: { message: 'Error!!' }
          };
-         const afterState: ICurrentUserState = INITIAL_STATE.currentUserState;
+         const afterState: ICurrentUserState = {
+             ...INITIAL_STATE.currentUserState,
+             loginError: action.error.message,
+        };
 
          expect( currentUserState(undefined, action) ).toEqual( afterState );
 

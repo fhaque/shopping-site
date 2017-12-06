@@ -17,7 +17,7 @@ export class UserActions {
         return { type: UserActions.LOGIN_USER_SUCCESS, user, loggedInOn };
     }
 
-    loginFailed(error: any): AnyAction {
+    loginFailed(error: Error): AnyAction {
         return { type: UserActions.LOGIN_USER_FAIL, error };
     }
 

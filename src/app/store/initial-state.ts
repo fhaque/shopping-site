@@ -9,6 +9,7 @@ export const INITIAL_STATE: IAppState = {
     currentUserState: {
         user: null,
         loggedInOn: null,
-        isLoggingIn: false
+        isLoggingIn: false,
+        loginError: null,
     },
 }

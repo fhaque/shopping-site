@@ -20,7 +20,10 @@ export const currentUserState = (
                 user: action.user
             };
         case UserActions.LOGIN_USER_FAIL:
-            return initialState;
+            return {
+                ...initialState,
+                loginError: (action.error as Error).message,
+            };
         case UserActions.LOGOUT_USER:
             return initialState;
         default:
