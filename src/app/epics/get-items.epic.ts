@@ -1,7 +1,7 @@
 import { Inject, Injectable } from "@angular/core";
 
 import { AnyAction, Store, Action } from "redux";
-import { ofType } from 'redux-observable';
+import { ofType, ActionsObservable } from 'redux-observable';
 
 import { Observable } from "rxjs/Observable";
 import 'rxjs/add/observable/merge';
@@ -13,6 +13,7 @@ import { ItemsActions } from "../actions/items.actions";
 import { AppService } from "../services/app.service";
 import { IItemsRef } from "../models/items.model";
 import { SearchHistoryActions } from "../actions/search-history.actions";
+import { debug } from "util";
 
 
 @Injectable()
@@ -23,19 +24,21 @@ export class GetItemsEpic {
         private searchHistoryActions: SearchHistoryActions,
     ) {}
 
-    getDefaultItems = (action$): Observable<AnyAction> => {
+    getDefaultItems = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(ItemsActions.GET_DEFAULT_ITEMS)
             .do( (action: AnyAction) => console.log('Epic sees action: ', action.type) )
             .mergeMap( () => this.appService.getTrendingItems() )
             .map((items:IItemsRef) => this.itemsActions.recievedDefaultItems(items, Date.now()) );
     }
 
-    getItemsByQuery = (action$): Observable<AnyAction> => {
+    getItemsByQuery = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         const queryAndItems$: Observable<[string, IItemsRef]> = action$
             .ofType(ItemsActions.GET_ITEMS_BY_QUERY)
             .map( (action: AnyAction) => action.query )
             .switchMap( (query: string) => 
-                this.appService.getItemsByQuery(query).map( (items: IItemsRef) => [query, items] ) 
+                this.appService.getItemsByQuery(query).map( (items: IItemsRef) => 
+                    [query, items] as [string, IItemsRef] 
+                ) 
             );
     
         const recievedItemsByQueryAction$: Observable<AnyAction> = queryAndItems$
