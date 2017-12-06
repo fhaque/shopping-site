@@ -1,7 +1,8 @@
 import { BrowserModule }          from '@angular/platform-browser';
 import { NgModule }               from '@angular/core';
-import { NgReduxModule, NgRedux } from '@angular-redux/store';
+import { NgReduxModule, NgRedux, DevToolsExtension } from '@angular-redux/store';
 import logger                     from 'redux-logger';
+import { composeWithDevTools } from 'redux-devtools-extension';
 import { RouterModule }           from '@angular/router';
 import { HttpClientModule }       from '@angular/common/http';
 import { 
@@ -109,10 +110,11 @@ import { LoginRouteGuard } from './services/login-route.guard';
 })
 export class AppModule {
 
-  constructor( 
+  constructor(
     ngRedux: NgRedux<IAppState>,
     getItemsEpic: GetItemsEpic,
-    userLoginEpic: UserLoginEpic
+    userLoginEpic: UserLoginEpic,
+    private devTools: DevToolsExtension
    ) {
     const epics = combineEpics(
       getItemsEpic.getDefaultItems,
@@ -121,8 +123,12 @@ export class AppModule {
       userLoginEpic.logout
     );
     
-    ngRedux.configureStore(rootReducer, INITIAL_STATE, [logger, createEpicMiddleware(epics)] );
-    // ngRedux.provideStore(store);
+    ngRedux.configureStore(
+      rootReducer, 
+      INITIAL_STATE, 
+      [logger, createEpicMiddleware(epics)],
+      [ devTools.enhancer() ]
+    );
   }
 
 }

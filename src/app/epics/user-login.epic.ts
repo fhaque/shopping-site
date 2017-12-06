@@ -28,20 +28,16 @@ export class UserLoginEpic {
 
     login = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(UserActions.LOGIN_USER_REQUEST)
-            .do( data => console.log('Logging in...', data) )
             .switchMap( (action: AnyAction) =>
                 this.loginService.login(action.username, action.pass) 
             )
-            .map( (user: IUser) => {
-                this.router.navigate(['']);
-                return this.userActions.loginSuccess(user, Date.now()) 
-            })
-            .catch((err: Error) => {
-                // console.error('User Login: ', err.message);
-                return Observable.of( 
-                    this.userActions.loginFailed(err) 
-                );
-            });
+            .map( (user: IUser) => 
+                this.userActions.loginSuccess(user, Date.now()) 
+            )
+            .do( () => this.router.navigate(['']) )
+            .catch((err: Error, caught) =>
+                Observable.of( this.userActions.loginFailed(err) )
+            )
     };
 
     logout = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
