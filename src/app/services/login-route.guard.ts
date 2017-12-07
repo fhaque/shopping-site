@@ -19,7 +19,10 @@ export class LoginRouteGuard implements CanActivate {
 
         // this.location.back(); //TODO: How to retain state?
 
-        this.router.navigate(['']);
+        this.router.navigate(
+            ['login'], 
+            { queryParams: {msg: 'Need to login first!'} }
+        );
         return false;
     }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit }  from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgRedux } from '@angular-redux/store';
 import { 
         FormBuilder, 
@@ -17,9 +17,11 @@ import { UserActions } from '../../actions/user.actions';
 export class LoginPageComponent implements OnInit {
   loginForm: FormGroup;
   loginError$: Observable<string>;
+  loginHeaderMsg: string;
 
   constructor(
     private router: Router,
+    private route: ActivatedRoute,
     private fb: FormBuilder,
     private ngRedux: NgRedux<IAppState>,
     private userActions: UserActions
@@ -30,6 +32,8 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {
     this.loginError$ = this.ngRedux
       .select<string>(['currentUserState', 'loginError']);
+
+    this.route.queryParams.subscribe( params => this.loginHeaderMsg = params.msg );
   }
 
   createForm() {
