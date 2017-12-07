@@ -28,7 +28,7 @@ export class UserLoginEpic {
 
     login = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(UserActions.LOGIN_USER_REQUEST)
-            .mergeMap( (action: AnyAction) =>
+            .switchMap( (action: AnyAction) =>
             // Lesson: For graceful error handling without disupting the action
             // stream, catch the error directly as possible (right after loginservice)
             // and then transform the error to something else and add that to the

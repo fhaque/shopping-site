@@ -14,7 +14,7 @@ class MockFilterActions {
 }
 
 
-describe('FilterComponent class', () => {
+xdescribe('FilterComponent class', () => {
   let component: FilterComponent;
   let mockRedux: MockRedux;
   let mockFilterActions: MockFilterActions;

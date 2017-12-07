@@ -10,7 +10,7 @@ class MockShoppingCartActions {
   addItem = (id: id) => ( {id} );
 }
 
-describe('DisplayItemsComponent', () => {
+xdescribe('DisplayItemsComponent', () => {
   let component: DisplayItemsComponent;
   let mockRedux: MockRedux;
   let mockShoppingCartActions:  MockShoppingCartActions;

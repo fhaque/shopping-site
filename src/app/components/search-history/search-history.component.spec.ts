@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchHistoryComponent } from './search-history.component';
 
-describe('SearchHistoryComponent', () => {
+xdescribe('SearchHistoryComponent', () => {
   let component: SearchHistoryComponent;
   let fixture: ComponentFixture<SearchHistoryComponent>;
 

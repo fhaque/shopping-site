@@ -36,11 +36,11 @@ describe('Current User State Reducer', () => {
             const pass: string = 'gwah';
 
             const beforeState: ICurrentUserState = {
+                ...INITIAL_STATE.currentUserState,
                 user: {
                     name: 'bob',
                 },
                 loggedInOn: Date.now(),
-                isLoggingIn: false,
             }
             const action: AnyAction = { 
                 type: UserActions.LOGIN_USER_REQUEST,
@@ -85,6 +85,7 @@ describe('Current User State Reducer', () => {
             };
 
             const beforeState: ICurrentUserState = {
+                ...INITIAL_STATE.currentUserState,
                 user: { name: 'cheese' },
                 loggedInOn: Date.now() - 100,
                 isLoggingIn: true,
