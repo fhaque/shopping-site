@@ -31,8 +31,7 @@ export class LoginService {
 
             return Observable.of( user );
         }
-        
-        return Observable.of( new Error('User Login Fail') );
+        return Observable.throw( new Error('User Login Failed: wrong login information') );
     }
 
     logout() {

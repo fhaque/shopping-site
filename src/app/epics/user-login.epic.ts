@@ -28,18 +28,19 @@ export class UserLoginEpic {
 
     login = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(UserActions.LOGIN_USER_REQUEST)
-            .switchMap( (action: AnyAction) =>
+            .mergeMap( (action: AnyAction) =>
+            // Lesson: For graceful error handling without disupting the action
+            // stream, catch the error directly as possible (right after loginservice)
+            // and then transform the error to something else and add that to the
+            // action stream.
                 this.loginService.login(action.username, action.pass)
-            )
-            .map( (val: IUser | Error) =>
-                (val instanceof Error) ?
-                this.userActions.loginFailed(val)
-                :
-                this.userActions.loginSuccess(val, Date.now()) 
+                    .map((val: IUser) =>
+                        this.userActions.loginSuccess(val, Date.now())
+                    )
+                    .catch((err: Error) =>
+                        Observable.of( this.userActions.loginFailed(err) )
+                    )
             );
-            // .catch((err: Error, caught) =>
-            //     Observable.of( this.userActions.loginFailed(err) )
-            // )
     };
 
     logout = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
