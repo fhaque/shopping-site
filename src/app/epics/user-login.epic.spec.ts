@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { LoginService } from './../services/login.service';
 import { UserLoginEpic } from './user-login.epic';
 import { ofType, ActionsObservable } from 'redux-observable';
 import { Observable } from 'rxjs/Observable';
@@ -13,20 +15,20 @@ import { AnyAction } from 'redux';
 import { IUser } from '../models/user.model';
 import { UserActions } from '../actions/user.actions';
 
-let mockUser: IUser = { name: 'MOCK_user' };
+const mockUser: IUser = { name: 'MOCK_user' };
 
 class MockLoginService {
     login = (username, pass) => {};
 
     logout = () => {};
-};
+}
 // TODO: Don't feel confident in the testing of Observables.
 // TODO: Needs to be updated since Login Service has changed its error handle.
 //      And because there is now a Router dependency
 class MockUserActions {
     loginSuccess = (user, date) => ({ type: 'MOCK_LOGIN_SUCCESS', user, date });
     loginFailed = (err) => ({ type: 'MOCK_LOGIN_ERROR', err });
-};
+}
 
 class MockRouter {
     router = {
@@ -36,13 +38,12 @@ class MockRouter {
 
 
 describe('UserLoginEpic', () => {
-    let mockUserActions: MockUserActions;
-    let mockLoginService: MockLoginService;
-    let mockRouter: MockRouter;
+    let mockUserActions: any;
+    let mockLoginService: any;
+    let mockRouter: any;
     let userLoginEpic: UserLoginEpic;
     let action$: any;
 
-    
 
     describe('login', () => {
         beforeEach(() => {
@@ -50,15 +51,15 @@ describe('UserLoginEpic', () => {
             mockUserActions = new MockUserActions();
             mockRouter = new MockRouter();
             userLoginEpic = new UserLoginEpic(
-                mockLoginService as any, 
-                mockUserActions as any,
-                mockRouter as any
+                mockLoginService as LoginService,
+                mockUserActions as UserActions,
+                mockRouter as Router
             );
         });
 
         it('should initiate login and succeed', (done: DoneFn) => {
-            const user: string = 'USER';
-            const pass: string = 'PASSWORD';
+            const user = 'USER';
+            const pass = 'PASSWORD';
             const date: number = Date.now();
 
             spyOn(mockLoginService, 'login')
@@ -71,7 +72,7 @@ describe('UserLoginEpic', () => {
                 .and
                 .returnValue( mockUserActions.loginFailed('Mock Error') )
 
-            action$ = ActionsObservable.of({ 
+            action$ = ActionsObservable.of({
                 type: UserActions.LOGIN_USER_REQUEST,
                 username: user,
                 pass: pass,
@@ -83,7 +84,7 @@ describe('UserLoginEpic', () => {
 
                     () => done.fail('User Login Epic: login fail'),
 
-                    () => { 
+                    () => {
                         expect( mockLoginService.login )
                             .toHaveBeenCalledWith(user, pass);
                         expect( mockUserActions.loginSuccess )
@@ -95,10 +96,10 @@ describe('UserLoginEpic', () => {
                 );
         });
         it('should throw error and failed action when login fails', (done: DoneFn) => {
-            const user: string = 'cheese';
-            const pass: string = 'cheese';
+            const user = 'cheese';
+            const pass = 'cheese';
             const date: number = Date.now();
-            const mockErrorMsg: string = 'MOCK_ERROR';
+            const mockErrorMsg = 'MOCK_ERROR';
 
             spyOn(mockLoginService, 'login')
                 .and
@@ -110,7 +111,7 @@ describe('UserLoginEpic', () => {
                 .and
                 .returnValue( mockUserActions.loginFailed(mockErrorMsg) );
 
-            action$ = ActionsObservable.of({ 
+            action$ = ActionsObservable.of({
                 type: UserActions.LOGIN_USER_REQUEST,
                 username: user,
                 pass: pass,
@@ -122,7 +123,7 @@ describe('UserLoginEpic', () => {
 
                 () => done.fail('User Login Epic: login fail'),
 
-                () => { 
+                () => {
                     expect( mockLoginService.login )
                         .toHaveBeenCalledWith(user, pass);
                     expect( mockUserActions.loginFailed )
@@ -133,7 +134,7 @@ describe('UserLoginEpic', () => {
                 }
             );
 
-        
+
         });
 
     });
@@ -144,15 +145,15 @@ describe('UserLoginEpic', () => {
             mockUserActions = new MockUserActions();
             mockRouter = new MockRouter();
             userLoginEpic = new UserLoginEpic(
-                mockLoginService as any, 
-                mockUserActions as any,
-                mockRouter as any
+                mockLoginService as LoginService,
+                mockUserActions as UserActions,
+                mockRouter as Router
             );
         });
-        it('should initiate logout and emit action', (done: DoneFn) => {
+        it('should initiate logout and emit no action', (done: DoneFn) => {
             spyOn(mockLoginService, 'logout');
 
-            action$ = ActionsObservable.of({ 
+            action$ = ActionsObservable.of({
                 type: UserActions.LOGOUT_USER,
             });
 
@@ -164,7 +165,7 @@ describe('UserLoginEpic', () => {
 
                     () => done.fail('User Login Epic: logout fail'),
 
-                    () => { 
+                    () => {
                         expect( mockLoginService.logout )
                             .toHaveBeenCalled();
                         done();

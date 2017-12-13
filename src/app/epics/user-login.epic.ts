@@ -7,10 +7,10 @@ import { ofType, ActionsObservable } from 'redux-observable';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/empty';
 import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/ignoreElements';
 
 import { LoginService } from '../services/login.service';
 import { UserActions } from '../actions/user.actions';
@@ -45,15 +45,13 @@ export class UserLoginEpic {
 
     logout = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(UserActions.LOGOUT_USER)
-            .switchMap( (action: AnyAction) => {
-                this.loginService.logout();
-                return ActionsObservable.empty();
-            });
+            .do( () => this.loginService.logout() )
+            .ignoreElements();
     };
 
     loginSuccess = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(UserActions.LOGIN_USER_SUCCESS)
             .do( () => this.router.navigate(['']) )
-            .mergeMap( () => ActionsObservable.empty());
+            .ignoreElements();
     }
 }

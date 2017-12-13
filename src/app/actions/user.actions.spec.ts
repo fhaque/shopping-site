@@ -8,9 +8,9 @@ describe('User Actions', () => {
     });
 
     it('should give an LOGIN_USER_REQUEST action', () => {
-        const username: string = 'bob';
-        const pass: string = 'cheese';
-        const expectedAction: AnyAction = { 
+        const username = 'bob';
+        const pass = 'cheese';
+        const expectedAction: AnyAction = {
             type: UserActions.LOGIN_USER_REQUEST,
             username,
             pass,
@@ -23,12 +23,12 @@ describe('User Actions', () => {
         const user: IUser = {
             name: 'bob'
         };
-        const loggedInOn: number = Date.now();
+        const loggedInOn = Date.now();
 
-        const expectedAction: AnyAction = { 
-            type: UserActions.LOGIN_USER_SUCCESS, 
-            user, 
-            loggedInOn 
+        const expectedAction: AnyAction = {
+            type: UserActions.LOGIN_USER_SUCCESS,
+            user,
+            loggedInOn
         };
 
         expect( this.userActions.loginSuccess(user, loggedInOn) )
@@ -36,7 +36,7 @@ describe('User Actions', () => {
     });
     it('should give a LOGIN_USER_FAIL action', () => {
         const error: any = { message: 'FAIL!!!' };
-        const expectedAction: AnyAction = { 
+        const expectedAction: AnyAction = {
             type: UserActions.LOGIN_USER_FAIL,
             error,
         };

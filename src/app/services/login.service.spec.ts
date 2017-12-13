@@ -1,5 +1,4 @@
 import { LoginService } from './login.service';
-import { setTimeout } from "timers";
 import { IUser } from '../models/user.model';
 
 
@@ -15,9 +14,9 @@ describe('Login Service', () => {
     describe('login', () => {
 
         it('should login given correct user and pass', (done: DoneFn) => {
-            const username: string = 'cheese';
-            const pass: string = 'cheese';
-    
+            const username = 'cheese';
+            const pass = 'cheese';
+
             loginService
                 .login(username, pass)
                 .subscribe(
@@ -28,8 +27,8 @@ describe('Login Service', () => {
                         expect( loginService.isLoggedIn() ).toBe(true);
                         expect( Object.keys(tokenObj) ).toContain('username');
                         expect( Object.keys(tokenObj) ).toContain('expiredAt');
-                    }, 
-                    (err: any) => done.fail(err), 
+                    },
+                    (err: any) => done.fail(err),
                     () => done()
                 );
         });
@@ -37,11 +36,11 @@ describe('Login Service', () => {
         it('should fail to login given wrong user and pass', (done: DoneFn) => {
             const username: string = 'cheese';
             const pass: string = 'chicken';
-    
+
             loginService
                 .login(username, pass)
                 .subscribe(
-                    (user: IUser) => done.fail(`Failed to error out on wrong login: ${user}`), 
+                    (user: IUser) => done.fail(`Failed to error out on wrong login: ${user}`),
                     (err: Error) => {
                         expect( err ).not.toBeUndefined();
                         expect( loginService.isLoggedIn() ).toBe(false);
@@ -59,14 +58,14 @@ describe('Login Service', () => {
     });
 
     it('should reset token on logout after logging in', (done: DoneFn) => {
-        const username: string = 'cheese';
-        const pass: string = 'cheese';
+        const username = 'cheese';
+        const pass = 'cheese';
 
         loginService
             .login( username, pass )
             .subscribe(
-                (user: IUser) => { }, 
-                (err: any) => done.fail(err), 
+                (user: IUser) => { },
+                (err: any) => done.fail(err),
                 () => {
                     loginService.logout();
                     expect( loginService['token'] ).toBeNull();

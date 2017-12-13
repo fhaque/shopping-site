@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { IItemsRef } from '../models/items.model';
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 
@@ -42,7 +42,7 @@ export class ApiService {
         return this.apiURLSearch + `&query=${searchTerm}`;
     }
 
-    //from Angular docs
+    // from Angular docs
     private handleError<T> (operation = 'operation', result?: T) {
         return (error: any): Observable<T> => {
 
@@ -58,7 +58,7 @@ export class ApiService {
     }
 
     log(message: string) {
-        //TODO: create some type of logger
+        // TODO: create some type of logger
         console.log('API Service:', message);
     }
 
