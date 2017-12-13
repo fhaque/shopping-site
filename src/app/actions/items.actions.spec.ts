@@ -22,7 +22,7 @@ describe('Items Actions', () => {
         const recievedOn = Date.now();
         const expectedAction: AnyAction = { type: ItemsActions.RECIEVED_ITEMS_BY_QUERY, items, recievedOn };
 
-        expect( itemsActions.recievedItemsByQuery(items, recievedOn) ).toEqual( expectedAction );
+        expect( itemsActions.receivedItemsByQuery(items, recievedOn) ).toEqual( expectedAction );
     });
 
     it('should give an RECIEVED_DEFAULT_ITEMS action', () => {
@@ -30,7 +30,7 @@ describe('Items Actions', () => {
         const recievedOn = Date.now();
         const expectedAction: AnyAction = { type: ItemsActions.RECIEVED_DEFAULT_ITEMS, items, recievedOn };
 
-        expect( itemsActions.recievedDefaultItems(items, recievedOn) ).toEqual( expectedAction );
+        expect( itemsActions.receivedDefaultItems(items, recievedOn) ).toEqual( expectedAction );
     });
 
 });
