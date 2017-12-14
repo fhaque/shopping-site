@@ -1,0 +1,27 @@
+<section>
+  <h2>Login:</h2>
+  <h3>
+    {{loginHeaderMsg || ''}}
+  </h3>
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+    <label>
+      User:
+      <input 
+        type="text"
+        formControlName="user">
+    </label>
+    <label>
+      Password:
+      <input 
+        type="password"
+        formControlName="pass">
+    </label>
+    <button type="submit">Login</button>
+    <button type="button" (click)="cancelLogin()">Cancel</button>
+    <div *ngIf="loginError$ | async as loginError">
+      Login Error: {{ loginError }}
+    </div>
+  </form>
+  <pre>Form Values: {{ loginForm.value | json }}</pre>
+  <pre>Form Status: {{ loginForm.status | json }}</pre>
+</section>

@@ -6,4 +6,10 @@ export const INITIAL_STATE: IAppState = {
     shoppingCart: {},
     filters: {},
     searchHistory: [],
+    currentUserState: {
+        user: null,
+        loggedInOn: null,
+        isLoggingIn: false,
+        loginError: null,
+    },
 }

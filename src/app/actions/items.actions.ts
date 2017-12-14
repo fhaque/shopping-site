@@ -17,11 +17,11 @@ export class ItemsActions {
         return { type: ItemsActions.GET_ITEMS_BY_QUERY, query };
     }
 
-    recievedDefaultItems(items: IItemsRef, recievedOn: number): AnyAction {
+    receivedDefaultItems(items: IItemsRef, recievedOn: number): AnyAction {
         return { type: ItemsActions.RECIEVED_DEFAULT_ITEMS, items, recievedOn };
     }
 
-    recievedItemsByQuery(items: IItemsRef, recievedOn: number): AnyAction {
+    receivedItemsByQuery(items: IItemsRef, recievedOn: number): AnyAction {
         return { type: ItemsActions.RECIEVED_ITEMS_BY_QUERY, items, recievedOn };
     }
 }
