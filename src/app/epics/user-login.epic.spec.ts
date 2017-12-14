@@ -28,8 +28,7 @@ describe('UserLoginEpic', () => {
       UserLoginEpic;
 
     beforeEach(() => {
-        mockRouter = {};
-        mockRouter.router = jasmine.createSpyObj('router', ['navigate']);
+        mockRouter = jasmine.createSpyObj('router', ['navigate']);
 
         userLoginEpicFactory = (loginService, userActions) =>
             new UserLoginEpic(
@@ -123,6 +122,30 @@ describe('UserLoginEpic', () => {
 
     });
 
+    describe('loginSuccess', () => {
+      it('should router navigate to home with login success action',
+          (done: DoneFn) => {
+              userLoginEpic = userLoginEpicFactory(
+                  mockLoginService,
+                  mockUserActions
+              );
+
+              action$ = ActionsObservable.of({
+                  type: UserActions.LOGIN_USER_SUCCESS,
+              });
+
+              userLoginEpic
+                  .loginSuccess(action$)
+                  .subscribe(
+                      () => expect( mockRouter ).toHaveBeenCalled(),
+
+                      undefined,
+
+                      () => done()
+                  );
+          });
+    });
+
     describe('logout', () => {
         beforeEach(() => {
             action$ = ActionsObservable.of({
@@ -154,6 +177,7 @@ describe('UserLoginEpic', () => {
                     }
                 );
         });
+
         it('should emit no action upon logging out', (done: DoneFn) => {
             mockLoginService = { logout: () => {} };
             mockUserActions = {};

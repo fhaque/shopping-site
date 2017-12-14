@@ -41,13 +41,13 @@ export class UserLoginEpic {
                         Observable.of( this.userActions.loginFailed(err) )
                     )
             );
-    };
+    }
 
     logout = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(UserActions.LOGOUT_USER)
             .do( () => this.loginService.logout() )
             .ignoreElements();
-    };
+    }
 
     loginSuccess = (action$: ActionsObservable<AnyAction>): Observable<AnyAction> => {
         return action$.ofType(UserActions.LOGIN_USER_SUCCESS)
